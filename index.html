@@ -1,0 +1,4384 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kilómetros que Suman | Gesa x Luis León</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y proximity;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.03"/></svg>');
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.5;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-img {
+            height: 55px;
+            width: auto;
+        }
+
+        .strava-logo {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-strava {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.6;
+        }
+
+        /* Hero Section - Redesigned with Impact */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('STRAVA.png');
+            background-size: cover;
+            background-position: center;
+            transform: scale(1);
+            z-index: 1;
+            will-change: transform;
+        }
+
+        /* Dark overlay with lateral gradient */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0.85) 0%,
+                rgba(0, 0, 0, 0.6) 50%,
+                rgba(0, 0, 0, 0.4) 100%
+            );
+            z-index: 2;
+        }
+
+        /* Cinematic grain texture */
+        .hero-grain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
+            opacity: 0.4;
+            z-index: 3;
+            pointer-events: none;
+            animation: grain-move 8s steps(10) infinite;
+        }
+
+        @keyframes grain-move {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -5%); }
+            20% { transform: translate(-10%, 5%); }
+            30% { transform: translate(5%, -10%); }
+            40% { transform: translate(-5%, 15%); }
+            50% { transform: translate(-10%, 5%); }
+            60% { transform: translate(15%, 0); }
+            70% { transform: translate(0, 10%); }
+            80% { transform: translate(-15%, 0); }
+            90% { transform: translate(10%, 5%); }
+        }
+
+        .hero-layout {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 80px;
+        }
+
+        .hero-left {
+            max-width: 800px;
+        }
+
+        /* New Hero Title - Three Lines with Impact */
+        .hero-title-new {
+            margin-bottom: 50px;
+        }
+
+        .hero-line {
+            display: block;
+            font-size: clamp(70px, 13vw, 160px);
+            font-weight: 900;
+            line-height: 0.85;
+            letter-spacing: -5px;
+            text-transform: uppercase;
+            text-shadow: 
+                0 4px 20px rgba(0, 0, 0, 0.9),
+                0 8px 40px rgba(0, 0, 0, 0.8),
+                0 16px 80px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            transform: translateY(60px);
+        }
+
+        .hero-line-1 {
+            animation: hero-line-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+        }
+
+        .hero-line-2 {
+            font-size: clamp(70px, 13vw, 160px);
+            letter-spacing: -5px;
+            margin-left: 0;
+            opacity: 0.95;
+            animation: hero-line-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+        }
+
+        .hero-line-3 {
+            animation: hero-line-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+        }
+
+        @keyframes hero-line-in {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Subtitle Block */
+        .hero-subtitle-block {
+            opacity: 0;
+            animation: fade-in-up 1s ease 1.2s forwards;
+        }
+
+        .hero-subtitle-main {
+            font-size: clamp(20px, 2.5vw, 32px);
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-subtitle-secondary {
+            font-size: clamp(14px, 1.5vw, 18px);
+            font-weight: 400;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        @keyframes fade-in-up {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* New CTA Buttons */
+        .hero-bottom-right {
+            position: absolute;
+            bottom: 80px;
+            right: 80px;
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            opacity: 0;
+            animation: fade-in-up 1s ease 1.5s forwards;
+        }
+
+        .cta-button-new {
+            padding: 20px 45px;
+            font-size: 15px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.3px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50px;
+            text-transform: none;
+        }
+
+        /* Primary Button - Nike Dominant */
+        .cta-button-new.primary {
+            background-color: var(--accent-green);
+            color: var(--primary-black);
+            box-shadow: 0 8px 30px rgba(172, 225, 95, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .cta-button-new.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(172, 225, 95, 0.6);
+            background-color: #9dd34e;
+        }
+
+        .cta-button-new.primary:hover .cta-glow {
+            opacity: 1;
+        }
+
+        /* Secondary Button - Nike Ghost */
+        .cta-button-new.secondary {
+            background-color: transparent;
+            color: var(--primary-white);
+            border: 1.5px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .cta-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+            border-radius: 50px;
+        }
+
+        .cta-button-new.secondary:hover .cta-border {
+            width: 100%;
+        }
+
+        .cta-button-new.secondary:hover {
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Meta - Premium Microdetail */
+        .hero-meta {
+            position: absolute;
+            bottom: 80px;
+            left: 80px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            opacity: 0.6;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            animation: fade-in 1s ease 1.8s forwards;
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 0.6; }
+        }
+
+        .meta-dot {
+            opacity: 0.4;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            opacity: 0;
+            animation: fade-in 1s ease 2s forwards;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                rgba(255, 255, 255, 0.5) 50%,
+                transparent
+            );
+            animation: scroll-move 2s ease-in-out infinite;
+        }
+
+        @keyframes scroll-move {
+            0%, 100% {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            50% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Hero Responsive */
+        @media (max-width: 968px) {
+            .hero-layout {
+                padding: 0 30px;
+            }
+
+            .hero-line {
+                font-size: clamp(50px, 12vw, 100px);
+                letter-spacing: -3px;
+            }
+
+            .hero-line-2 {
+                font-size: clamp(50px, 12vw, 100px);
+                letter-spacing: -3px;
+                margin-left: 0;
+            }
+
+            .hero-subtitle-main {
+                font-size: clamp(16px, 4vw, 24px);
+            }
+
+            .hero-subtitle-secondary {
+                font-size: clamp(13px, 3vw, 16px);
+            }
+
+            .hero-bottom-right {
+                bottom: 140px;
+                right: 30px;
+                left: 30px;
+                flex-direction: column;
+            }
+
+            .cta-button-new {
+                padding: 18px 35px;
+                font-size: 14px;
+                width: 100%;
+            }
+
+            .hero-meta {
+                bottom: 30px;
+                left: 30px;
+                font-size: 9px;
+                gap: 8px;
+            }
+
+            .scroll-indicator {
+                display: none;
+            }
+        }
+
+        /* Split Section - Full Screen Scroll */
+        .split-section {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+            scroll-snap-align: start;
+        }
+
+        .scroll-section {
+            scroll-snap-type: y mandatory;
+        }
+
+        .split-section.reverse {
+            direction: rtl;
+        }
+
+        .split-section.reverse > * {
+            direction: ltr;
+        }
+
+        .split-left, .split-right {
+            padding: 100px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .split-left {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+        }
+
+        .split-right {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+        }
+
+        .visual-element {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .floating-number {
+            font-size: 300px;
+            font-weight: 900;
+            color: #FC4C02;
+            opacity: 0.1;
+            line-height: 1;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .section-number {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #FC4C02;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: clamp(40px, 6vw, 72px);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .section-text {
+            font-size: 18px;
+            line-height: 1.7;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        /* Glass Cards */
+        .cards-section {
+            padding: 150px 60px;
+            background: #000;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 50px 40px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .glass-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 30px;
+        }
+
+        .card-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .card-text {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        /* Full Width Statement */
+        .statement-section {
+            padding: 200px 60px;
+            text-align: center;
+            background: linear-gradient(180deg, #000 0%, #1a1a1a 50%, #000 100%);
+        }
+
+        .statement-text {
+            font-size: clamp(32px, 6vw, 80px);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -2px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .statement-highlight {
+            background: linear-gradient(135deg, #fff 0%, #888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Prize Section */
+        .prize-section {
+            padding: 150px 60px;
+            background: #000;
+        }
+
+        .prize-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .prize-content h2 {
+            font-size: clamp(40px, 6vw, 64px);
+            font-weight: 900;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+        .prize-subtitle {
+            font-size: clamp(20px, 2.5vw, 28px);
+            font-weight: 600;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .prize-intro {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        .prize-list-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+
+        .prize-outro {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-top: 40px;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        .prize-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .prize-list li {
+            font-size: 16px;
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 300;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            line-height: 1.6;
+        }
+
+        .prize-list li::before {
+            content: '→';
+            font-size: 20px;
+            opacity: 0.5;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .prize-visual {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 60px;
+            text-align: center;
+            font-size: 120px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 60px 40px;
+            background: #000;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .footer-tagline {
+            font-size: 16px;
+            opacity: 0.6;
+            font-weight: 300;
+            margin-bottom: 25px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--primary-white);
+            transition: all 0.3s ease;
+            opacity: 0.7;
+            position: relative;
+        }
+
+        .social-link::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-green);
+            transition: width 0.3s ease;
+        }
+
+        .social-link:hover {
+            opacity: 1;
+            color: var(--accent-green);
+        }
+
+        .social-link:hover::after {
+            width: 100%;
+        }
+
+        .footer-links h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            nav {
+                padding: 20px 30px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .split-section {
+                grid-template-columns: 1fr;
+            }
+
+            .split-left, .split-right {
+                padding: 80px 40px;
+            }
+
+            .cards-section {
+                padding: 100px 30px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .statement-section {
+                padding: 120px 30px;
+            }
+
+            .prize-container {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        /* Bike Morph Section */
+        .bike-morph-section {
+            min-height: 100vh;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 100px 60px;
+        }
+
+        .bike-morph-container {
+            max-width: 1400px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .bike-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bike-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 60px rgba(255, 255, 255, 0.1));
+            transition: all 0.6s ease;
+        }
+
+        .bike-image:hover {
+            transform: scale(1.05) rotate(2deg);
+            filter: drop-shadow(0 30px 80px rgba(255, 255, 255, 0.2));
+        }
+
+        /* How to Participate Section */
+        .participate-section {
+            padding: 150px 60px;
+            background: linear-gradient(180deg, #000 0%, #0a0a0a 100%);
+        }
+
+        .participate-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .participate-title {
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 80px;
+            letter-spacing: -3px;
+            text-transform: uppercase;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .step-card:hover::after {
+            opacity: 1;
+        }
+
+        .step-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 60px rgba(255, 255, 255, 0.1);
+        }
+
+        .step-number {
+            font-size: 72px;
+            font-weight: 900;
+            opacity: 0.1;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .step-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .step-text {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        /* Orange Ticket Card */
+        .ticket-card {
+            background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+            border-radius: 24px;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+            color: #000;
+            max-width: 700px;
+            margin: 0 auto;
+            box-shadow: 0 30px 80px rgba(255, 107, 53, 0.4);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .ticket-card:hover {
+            transform: translateY(-10px) rotate(-1deg);
+            box-shadow: 0 40px 100px rgba(255, 107, 53, 0.6);
+        }
+
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+        }
+
+        .ticket-location {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .ticket-icon {
+            font-size: 48px;
+        }
+
+        .ticket-title {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .ticket-subtitle {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .ticket-divider {
+            height: 2px;
+            background: #000;
+            margin: 30px 0;
+            opacity: 0.3;
+        }
+
+        .ticket-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .ticket-detail-item h4 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            opacity: 0.7;
+        }
+
+        .ticket-detail-item p {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .ticket-barcode {
+            height: 60px;
+            background: repeating-linear-gradient(
+                90deg,
+                #000 0px,
+                #000 3px,
+                transparent 3px,
+                transparent 6px,
+                #000 6px,
+                #000 10px,
+                transparent 10px,
+                transparent 12px,
+                #000 12px,
+                #000 14px,
+                transparent 14px,
+                transparent 20px
+            );
+            margin: 30px 0;
+            border-radius: 4px;
+        }
+
+        .ticket-cta {
+            background: #000;
+            color: #ff6b35;
+            padding: 20px 40px;
+            border: 3px solid #000;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+        }
+
+        .ticket-cta:hover {
+            background: transparent;
+            color: #000;
+            transform: scale(1.02);
+        }
+
+        /* Enhanced Prize Section */
+        .prize-visual {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prize-visual-content {
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 900;
+            line-height: 1.2;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .prize-visual:hover .prize-visual-content {
+            transform: scale(1.2);
+            text-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
+        }
+
+        .prize-list li {
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .prize-list li:hover {
+            transform: translateX(10px);
+            opacity: 1;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+
+
+        /* Step numbers with correct orange - NO NEON */
+        .step-number {
+            font-size: 72px;
+            font-weight: 900;
+            color: #FC4C02;
+            line-height: 1;
+            margin-bottom: 20px;
+            opacity: 1;
+        }
+
+        /* Ticket close button */
+        .ticket-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: #000;
+            color: #ff6b35;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .ticket-close:hover {
+            transform: rotate(90deg);
+            background: #ff6b35;
+            color: #000;
+        }
+
+        /* Prize showcase */
+        .prize-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .prize-main-title {
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 900;
+            letter-spacing: -3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .prize-main-subtitle {
+            font-size: clamp(20px, 3vw, 32px);
+            font-weight: 300;
+            opacity: 0.7;
+        }
+
+        .prize-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto 100px;
+        }
+
+        .prize-product {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .prize-product:hover {
+            transform: translateY(-20px) scale(1.02);
+            border-color: rgba(255, 107, 53, 0.5);
+            box-shadow: 0 30px 80px rgba(255, 107, 53, 0.3);
+        }
+
+        .prize-product-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            overflow: hidden;
+        }
+
+        .prize-product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: all 0.5s ease;
+        }
+
+        .prize-product:hover .prize-product-image img {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .prize-product-info {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .prize-product-info h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .prize-product-info p {
+            font-size: 16px;
+            opacity: 0.7;
+            font-weight: 300;
+        }
+
+        .prize-details-section {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .prize-text-content {
+            text-align: center;
+        }
+
+        .prize-description {
+            font-size: 18px;
+            line-height: 1.8;
+            opacity: 0.8;
+            margin-bottom: 60px;
+            font-weight: 300;
+        }
+
+        .prize-items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .prize-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            transition: all 0.4s ease;
+            text-align: left;
+        }
+
+        .prize-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 107, 53, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .prize-item-icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .prize-item h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .prize-item p {
+            font-size: 14px;
+            opacity: 0.7;
+            line-height: 1.5;
+        }
+
+        .prize-outro {
+            font-size: 18px;
+            line-height: 1.8;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        /* Enhanced Ticket Card with REAL 3D effect */
+        .ticket-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            overflow: visible !important;
+            position: relative;
+            box-shadow: 
+                0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+                0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+                0 12.5px 10px rgba(0, 0, 0, 0.06),
+                0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+                0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+                0 100px 80px rgba(0, 0, 0, 0.12),
+                0 50px 100px rgba(252, 76, 2, 0.4);
+        }
+
+        .ticket-card::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            background: linear-gradient(135deg, rgba(252, 76, 2, 0.4), rgba(255, 140, 66, 0.4));
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            filter: blur(30px);
+        }
+
+        .ticket-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+            border-radius: 16px;
+            pointer-events: none;
+        }
+
+        .ticket-card:hover {
+            transform: translateY(-20px) translateZ(50px) rotateX(5deg) rotateY(-5deg) !important;
+            box-shadow: 
+                0 5px 5px rgba(0, 0, 0, 0.05),
+                0 10px 10px rgba(0, 0, 0, 0.07),
+                0 20px 20px rgba(0, 0, 0, 0.09),
+                0 40px 40px rgba(0, 0, 0, 0.11),
+                0 80px 80px rgba(0, 0, 0, 0.13),
+                0 150px 150px rgba(0, 0, 0, 0.15),
+                0 80px 150px rgba(252, 76, 2, 0.6) !important;
+        }
+
+        .ticket-card:hover::before {
+            opacity: 1;
+        }
+
+        .ticket-social-note {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 2px dashed rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .ticket-social-note p {
+            font-size: 13px;
+            margin-bottom: 15px;
+            opacity: 0.8;
+            font-weight: 500;
+        }
+
+        .social-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #000;
+            color: #FC4C02;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .social-button:hover {
+            background: #fff;
+            color: #000;
+            transform: scale(1.05);
+        }
+
+        .social-button span {
+            font-size: 20px;
+        }
+
+        /* Nike-Inspired Prize Section */
+        .nike-product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 60px;
+            max-width: 1400px;
+            margin: 0 auto 80px;
+        }
+
+        .nike-product-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .nike-product-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(252, 76, 2, 0.3);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+        }
+
+        .nike-product-images {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #000 100%);
+            overflow: hidden;
+        }
+
+        .nike-product-images .product-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 60px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .nike-product-images .product-img.active {
+            opacity: 1;
+        }
+
+        .nike-product-thumbnails {
+            display: flex;
+            gap: 10px;
+            padding: 20px;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .thumbnail {
+            width: 50px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .thumbnail.active {
+            background: #FC4C02;
+        }
+
+        .thumbnail:hover {
+            background: rgba(252, 76, 2, 0.6);
+        }
+
+        .nike-product-info {
+            padding: 40px;
+            text-align: left;
+        }
+
+        .nike-product-info h3 {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.5;
+            margin-bottom: 10px;
+        }
+
+        .nike-product-info h4 {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+        }
+
+        .nike-product-info p {
+            font-size: 16px;
+            opacity: 0.7;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .nike-prize-list {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+        }
+
+        .nike-prize-item {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            padding: 50px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        .nike-prize-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(252, 76, 2, 0.3);
+            transform: translateX(10px);
+        }
+
+        .nike-prize-number {
+            font-size: 80px;
+            font-weight: 900;
+            color: #FC4C02;
+            line-height: 1;
+            opacity: 0.3;
+        }
+
+        .nike-prize-content h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .nike-prize-content p {
+            font-size: 16px;
+            opacity: 0.7;
+            font-weight: 300;
+        }
+
+        .prize-footer-text {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .prize-footer-text p {
+            font-size: 18px;
+            line-height: 1.8;
+            opacity: 0.7;
+            font-weight: 300;
+        }
+
+
+
+        /* Step Card Hover Fix */
+        .step-card:hover::after {
+            opacity: 1;
+        }
+
+        .step-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(244, 224, 77, 0.5);
+            box-shadow: 0 20px 60px rgba(244, 224, 77, 0.2);
+        }
+
+        /* CORE COLOR SYSTEM - BLACK, WHITE, GREEN */
+        :root {
+            --primary-black: #000000;
+            --primary-white: #FFFFFF;
+            --accent-green: #ACE15F;
+            --accent-green-glow: rgba(172, 225, 95, 0.3);
+        }
+
+        /* Compact Glassmorphism Cards */
+        .compact-cards-section {
+            padding: 60px;
+            background: #000;
+        }
+
+        .glass-cards-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .compact-glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 40px;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .compact-glass-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(172, 225, 95, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .compact-glass-card .card-number {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent-green);
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .compact-glass-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .compact-glass-card p {
+            font-size: 15px;
+            line-height: 1.6;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        /* Compact Bike Section */
+        .compact-bike-section {
+            padding: 60px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+        }
+
+        .compact-bike-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .bike-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, rgba(244, 224, 77, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            padding: 40px;
+        }
+
+        .bike-img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+            transition: all 0.5s ease;
+        }
+
+        .bike-img:hover {
+            transform: scale(1.05) rotate(2deg);
+            filter: drop-shadow(0 30px 60px rgba(244, 224, 77, 0.4));
+        }
+
+        .bike-text {
+            color: #000;
+        }
+
+        .bike-text .card-number {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--pantone-yellow);
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .bike-text h3 {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: #000;
+            letter-spacing: -1px;
+        }
+
+        .bike-text p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #333;
+        }
+
+        /* Ticket Card - New Layout with Social Left */
+        .ticket-main-content {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .ticket-social-left {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding-top: 20px;
+        }
+
+        .social-note {
+            font-size: 12px;
+            font-weight: 600;
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+
+        .social-button-premium {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #000;
+            color: var(--pantone-yellow);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            justify-content: center;
+        }
+
+        .social-button-premium:hover {
+            background: var(--pantone-yellow);
+            color: #000;
+            transform: scale(1.05);
+        }
+
+        .social-button-premium span {
+            font-size: 18px;
+        }
+
+        /* Animated Clock */
+        .animated-clock {
+            width: 60px;
+            height: 60px;
+            margin-top: 10px;
+        }
+
+        .clock-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .clock-face {
+            fill: none;
+            stroke: #000;
+            stroke-width: 2;
+            opacity: 0.3;
+        }
+
+        .clock-hand {
+            stroke: var(--pantone-yellow);
+            stroke-width: 2;
+            stroke-linecap: round;
+            transform-origin: 50% 50%;
+        }
+
+        .hour-hand {
+            animation: rotate-hour 43200s linear infinite;
+        }
+
+        .minute-hand {
+            animation: rotate-minute 3600s linear infinite;
+            stroke-width: 1.5;
+        }
+
+        .clock-center {
+            fill: var(--pantone-yellow);
+        }
+
+        @keyframes rotate-hour {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes rotate-minute {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Prize Section - Enhanced Animations */
+        .nike-product-card {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nike-product-card:hover {
+            transform: translateY(-15px) scale(1.04);
+            border-color: rgba(244, 224, 77, 0.4);
+            box-shadow: 0 30px 80px rgba(244, 224, 77, 0.2);
+        }
+
+        .nike-product-card:hover .product-img.active {
+            transform: scale(1.05);
+        }
+
+        .nike-prize-item {
+            transition: all 0.5s ease;
+        }
+
+        .nike-prize-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(244, 224, 77, 0.4);
+            transform: translateX(15px);
+            box-shadow: 0 10px 40px rgba(244, 224, 77, 0.15);
+        }
+
+        .nike-prize-number {
+            color: var(--pantone-yellow);
+        }
+
+        .thumbnail.active {
+            background: var(--pantone-yellow);
+        }
+
+        .thumbnail:hover {
+            background: rgba(244, 224, 77, 0.6);
+        }
+
+        /* Update all Pantone colors */
+        .section-number {
+            color: var(--pantone-yellow);
+        }
+
+        .step-number {
+            color: var(--pantone-yellow);
+        }
+
+        .modern-text-title {
+            background: linear-gradient(135deg, #fff 0%, var(--pantone-yellow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .social-button {
+            color: var(--pantone-yellow);
+        }
+
+        .social-button:hover {
+            background: var(--pantone-yellow);
+        }
+
+        /* Reduce Modern Text Section Padding */
+        .modern-text-section {
+            padding: 60px 60px;
+        }
+
+        /* COMPLETE COLOR SYSTEM UPDATE - GREEN ACCENT */
+        .section-number {
+            color: var(--accent-green);
+        }
+
+        .step-number {
+            color: var(--accent-green);
+            font-size: 80px;
+            font-weight: 900;
+        }
+
+        .step-card {
+            background: var(--primary-black);
+            border: 1px solid rgba(172, 225, 95, 0.2);
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(172, 225, 95, 0.05);
+            border-color: var(--accent-green);
+            box-shadow: 0 20px 60px var(--accent-green-glow);
+        }
+
+        .step-card:hover .step-title {
+            transform: scale(1.05);
+        }
+
+        .step-card:hover .step-text {
+            transform: scale(1.02);
+        }
+
+        .step-title, .step-text {
+            transition: transform 0.3s ease;
+        }
+
+        .modern-text-title {
+            background: linear-gradient(135deg, #fff 0%, var(--accent-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .bike-text .card-number {
+            color: var(--accent-green);
+        }
+
+        .bike-text p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .bike-text h3 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 30px;
+            color: #000;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+        /* Statement Section */
+        .statement-section {
+            padding: 150px 60px;
+            text-align: center;
+            background: var(--primary-black);
+        }
+
+        .statement-text {
+            font-size: clamp(40px, 7vw, 90px);
+            font-weight: 900;
+            line-height: 1.2;
+            letter-spacing: -3px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .statement-highlight {
+            color: var(--accent-green);
+        }
+
+        /* GREEN CARD (Previously Orange) */
+        .green-card {
+            background: var(--accent-green);
+            border-radius: 16px;
+            padding: 50px;
+            position: relative;
+            overflow: visible;
+            color: var(--primary-black);
+            max-width: 700px;
+            margin: 0 auto;
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.1),
+                0 20px 40px rgba(172, 225, 95, 0.3);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .green-card:hover {
+            transform: translateY(-15px) translateZ(30px);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.15),
+                0 40px 80px rgba(172, 225, 95, 0.4);
+        }
+
+        .green-card-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-black);
+            color: var(--accent-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .green-card-close:hover {
+            transform: rotate(90deg);
+            background: var(--primary-white);
+        }
+
+        .green-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .card-location {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-family: 'Courier New', monospace;
+        }
+
+        .card-icon {
+            font-size: 40px;
+        }
+
+        .green-card-title {
+            font-size: clamp(40px, 6vw, 64px);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .green-card-subtitle {
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .card-divider {
+            height: 2px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--primary-black) 0px,
+                var(--primary-black) 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            margin: 25px 0;
+            opacity: 0.4;
+        }
+
+        .card-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .card-detail-item h4 {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            opacity: 0.7;
+            font-family: 'Courier New', monospace;
+        }
+
+        .card-detail-item p {
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+        }
+
+        .card-barcode {
+            height: 70px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--primary-black) 0px,
+                var(--primary-black) 2px,
+                transparent 2px,
+                transparent 4px,
+                var(--primary-black) 4px,
+                var(--primary-black) 8px,
+                transparent 8px,
+                transparent 10px
+            );
+            margin: 30px 0;
+            border-radius: 4px;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .card-button {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--primary-black);
+            color: var(--primary-white);
+            padding: 16px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-black);
+        }
+
+        .card-button:hover {
+            background: var(--primary-white);
+            color: var(--primary-black);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-button.primary {
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+
+        .card-button span {
+            font-size: 18px;
+        }
+
+        .card-note {
+            font-size: 12px;
+            text-align: center;
+            opacity: 0.7;
+            font-weight: 500;
+        }
+
+        /* Animated Clock - Green Accent */
+        .clock-face {
+            stroke: var(--primary-black);
+        }
+
+        .clock-hand {
+            stroke: var(--primary-black);
+        }
+
+        .clock-center {
+            fill: var(--primary-black);
+        }
+
+        /* Prize Section - Green Accents */
+        .nike-product-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            border-color: rgba(172, 225, 95, 0.4);
+            box-shadow: 0 30px 80px var(--accent-green-glow);
+        }
+
+        .nike-prize-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(172, 225, 95, 0.4);
+            transform: translateX(15px);
+            box-shadow: 0 10px 40px var(--accent-green-glow);
+        }
+
+        .nike-prize-item:hover .nike-prize-content h3 {
+            transform: scale(1.05);
+            position: relative;
+        }
+
+        .nike-prize-item:hover .nike-prize-content h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent-green);
+            animation: underline-grow 0.4s ease forwards;
+        }
+
+        @keyframes underline-grow {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .nike-prize-number {
+            color: var(--accent-green);
+        }
+
+        .nike-prize-content h3 {
+            transition: transform 0.3s ease;
+        }
+
+        .thumbnail.active {
+            background: var(--accent-green);
+        }
+
+        .thumbnail:hover {
+            background: rgba(172, 225, 95, 0.6);
+        }
+
+        /* Spacing Improvements */
+        .compact-cards-section {
+            padding: 100px 60px;
+        }
+
+        .compact-bike-section {
+            padding: 100px 60px;
+        }
+
+        .participate-section {
+            padding: 100px 60px;
+        }
+
+        /* COMPLETE LAYOUT REBUILD */
+        
+
+
+        /* Companion Section - Premium Campaign Style */
+        .companion-section {
+            padding: 80px 60px;
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .companion-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.02) 100%);
+            pointer-events: none;
+        }
+
+        .companion-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.02"/></svg>');
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .companion-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 60% 40%;
+            gap: 0;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .companion-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .companion-img {
+            width: 120%;
+            max-width: none;
+            height: auto;
+            filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.15));
+            transition: all 0.4s ease;
+            transform: translateX(40px);
+        }
+
+        .companion-img:hover {
+            transform: translateX(40px) scale(1.02) rotate(0.5deg);
+        }
+
+        .companion-content {
+            color: var(--primary-black);
+            max-width: 520px;
+            padding-left: 40px;
+        }
+
+        .companion-title {
+            font-size: clamp(48px, 6vw, 64px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 35px;
+            line-height: 1.05;
+            text-transform: uppercase;
+        }
+
+        .companion-text {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #1a1a1a;
+            margin-bottom: 18px;
+            font-weight: 400;
+        }
+
+        /* Participate Section - Vertical Steps + Green Card */
+        .participate-section {
+            padding: 110px 60px;
+            background: var(--primary-black);
+        }
+
+        .participate-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .participate-title {
+            font-size: clamp(48px, 8vw, 80px);
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 80px;
+            letter-spacing: -3px;
+        }
+
+        .participate-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* Vertical Steps (Nike Style - No Cards, No Lines) */
+        .steps-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+        }
+
+        .step-item {
+            padding-left: 0;
+            transition: all 0.5s ease;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .step-item.will-animate {
+            opacity: 0;
+            transform: translateX(-60px);
+        }
+
+        .step-item.animate-in {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .step-item:hover {
+            transform: translateX(10px);
+        }
+
+        .step-num {
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--accent-green);
+            display: block;
+            margin-bottom: 18px;
+            line-height: 1;
+        }
+
+        .step-heading {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            line-height: 1;
+            position: relative;
+            display: inline-block;
+        }
+
+        .step-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent-green);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step-item:hover .step-heading {
+            transform: translateX(5px);
+            color: var(--accent-green);
+        }
+
+        .step-item:hover .step-heading::after {
+            width: 100%;
+        }
+
+        .step-desc {
+            font-size: 17px;
+            line-height: 1.7;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        /* Nike-style emphasis on first word */
+        .step-desc::first-line {
+            font-weight: 700;
+        }
+
+        .step-desc {
+            font-size: 15px;
+            line-height: 1.6;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        /* Challenge Pass Card - Premium 3D Interactive */
+        .challenge-pass-wrapper {
+            perspective: 1500px;
+        }
+
+        .challenge-pass {
+            background: linear-gradient(135deg, var(--accent-green) 0%, #b8e87a 100%);
+            border-radius: 20px;
+            padding: 50px 45px;
+            color: var(--primary-black);
+            box-shadow: 
+                0 20px 60px rgba(172, 225, 95, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 0 60px rgba(255, 255, 255, 0.1);
+            transition: box-shadow 0.4s ease, transform 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Animated gradient overlay */
+        .challenge-pass::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.2) 50%,
+                transparent 70%
+            );
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+        }
+
+        .challenge-pass:hover::before {
+            opacity: 1;
+            animation: shine-sweep 3s ease-in-out infinite;
+        }
+
+        @keyframes shine-sweep {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .challenge-pass:hover {
+            box-shadow: 
+                0 30px 80px rgba(172, 225, 95, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                inset 0 0 80px rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-5px);
+        }
+
+        /* Winner Badge Inside Card */
+        .pass-winner-badge {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            margin: 25px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .winner-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--accent-green);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            animation: number-appear 3s ease-in-out infinite;
+        }
+
+        @keyframes number-appear {
+            0%, 100% { 
+                opacity: 0;
+                transform: scale(0.5) rotate(-180deg);
+            }
+            20%, 80% { 
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .winner-text {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            line-height: 1.4;
+        }
+
+        .pass-header {
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            opacity: 0.7;
+            font-family: 'Courier New', monospace;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pass-header-badge {
+            background: rgba(0, 0, 0, 0.15);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            letter-spacing: 2px;
+        }
+
+        .pass-title {
+            font-size: clamp(32px, 4.5vw, 42px);
+            font-weight: 900;
+            line-height: 0.95;
+            margin-bottom: 35px;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .pass-divider {
+            height: 2px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(0, 0, 0, 0.2) 20%,
+                rgba(0, 0, 0, 0.2) 80%,
+                transparent
+            );
+            margin: 30px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .pass-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .pass-detail-item {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.08);
+            padding: 15px 10px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .pass-detail-item:hover {
+            background: rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .pass-detail-item h4 {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            opacity: 0.6;
+            font-family: 'Courier New', monospace;
+        }
+
+        .pass-detail-item p {
+            font-size: 16px;
+            font-weight: 900;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.5px;
+        }
+
+        .progress-section {
+            margin: 30px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .progress-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            opacity: 0.7;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+        }
+
+        .progress-bar-thin {
+            width: 100%;
+            height: 6px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-fill-animated {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--primary-black) 0%, #333 100%);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: progress-loop 4s ease-in-out infinite;
+        }
+
+        @keyframes progress-loop {
+            0%, 100% { width: 0; }
+            50% { width: 100%; }
+        }
+
+        .progress-fill-animated::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: progress-shine 1.5s ease-in-out infinite;
+        }
+
+        @keyframes progress-shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .pass-microcopy {
+            font-size: 12px;
+            line-height: 1.6;
+            opacity: 0.75;
+            margin: 25px 0;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid rgba(0, 0, 0, 0.2);
+        }
+
+        .pass-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .pass-btn-primary {
+            background: var(--primary-black);
+            color: var(--accent-green);
+            padding: 20px 35px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+            display: inline-block;
+        }
+
+        .pass-btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+            z-index: -1;
+        }
+
+        .pass-btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .pass-btn-primary:hover {
+            background: var(--primary-white);
+            color: var(--primary-black);
+            transform: scale(1.05);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .pass-link-secondary {
+            text-align: center;
+            font-size: 14px;
+            color: var(--primary-black);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            position: relative;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .ig-icon {
+            font-size: 18px;
+            display: inline-block;
+            animation: ig-bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes ig-bounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-4px) rotate(5deg); }
+        }
+
+        .pass-link-secondary::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary-black);
+            transition: width 0.3s ease;
+        }
+
+        .pass-link-secondary:hover {
+            opacity: 1;
+        }
+
+        .pass-link-secondary:hover::after {
+            width: 80%;
+        }
+
+        .pass-link-secondary:hover .ig-icon {
+            animation: ig-bounce 0.5s ease-in-out infinite;
+        }
+
+        /* Decorative corner elements - REMOVED */
+
+
+
+
+
+        /* Card Actions - Same Width Buttons */
+
+
+        /* Prize Section - Grid Showcase */
+        .prize-section {
+            padding: 100px 60px;
+            background: var(--primary-black);
+            position: relative;
+        }
+
+        .prize-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px);
+            opacity: 0.5;
+            animation: grain 8s steps(10) infinite;
+        }
+
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -5%); }
+            20% { transform: translate(-10%, 5%); }
+            30% { transform: translate(5%, -10%); }
+            40% { transform: translate(-5%, 15%); }
+            50% { transform: translate(-10%, 5%); }
+            60% { transform: translate(15%, 0); }
+            70% { transform: translate(0, 10%); }
+            80% { transform: translate(-15%, 0); }
+            90% { transform: translate(10%, 5%); }
+        }
+
+        .prize-header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .prize-main-title {
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 900;
+            letter-spacing: -3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .prize-intro-text {
+            font-size: 18px;
+            line-height: 1.7;
+            max-width: 900px;
+            margin: 0 auto;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        .prize-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 60px;
+            max-width: 1400px;
+            margin: 0 auto 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .prize-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .prize-card:hover {
+            transform: translateY(-15px);
+            border-color: rgba(172, 225, 95, 0.4);
+            box-shadow: 0 30px 80px rgba(172, 225, 95, 0.3);
+        }
+
+        .prize-card-image {
+            width: 100%;
+            height: 450px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+            overflow: hidden;
+        }
+
+        .prize-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.5));
+            transition: transform 0.6s ease;
+        }
+
+        .prize-card:hover .prize-card-image img {
+            transform: scale(1.1);
+        }
+
+        .prize-card-info {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .prize-card-category {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-green);
+            margin-bottom: 15px;
+        }
+
+        .prize-card-title {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+            transition: transform 0.4s ease;
+        }
+
+        .prize-card:hover .prize-card-title {
+            transform: scale(1.05);
+        }
+
+        .prize-card-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent-green);
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .prize-card:hover .prize-card-title::after {
+            width: 100%;
+        }
+
+        .prize-card-desc {
+            font-size: 16px;
+            opacity: 0.7;
+            font-weight: 300;
+        }
+
+        /* Prize Question Block - Professional Nike Layout */
+        .prize-question-block {
+            max-width: 1200px;
+            margin: 100px auto 120px;
+            padding: 0;
+            background: transparent;
+            border: none;
+            position: relative;
+            text-align: center;
+        }
+
+        .question-arrow {
+            display: none;
+        }
+
+        .question-text {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 40px;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fade-in-up 0.8s ease 0.2s forwards;
+        }
+
+        .question-answer {
+            font-size: clamp(18px, 2.5vw, 24px);
+            line-height: 1.7;
+            max-width: 900px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fade-in-up 0.8s ease 0.5s forwards;
+            font-weight: 400;
+        }
+
+        .highlight-value {
+            color: var(--accent-green);
+            font-weight: 900;
+            font-size: 1.4em;
+            letter-spacing: -1px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .highlight-value::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent-green);
+            opacity: 0.5;
+        }
+
+        /* Prize Carousel - Nike Horizontal Scroll */
+        .prize-carousel-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding: 0 0 80px 0;
+        }
+
+        .prize-carousel {
+            display: flex;
+            gap: 40px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 0 60px 40px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .prize-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .prize-slide {
+            flex: 0 0 90%;
+            max-width: 1200px;
+            scroll-snap-align: center;
+            scroll-snap-stop: always;
+        }
+
+        .prize-slide-inner {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            overflow: hidden;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 600px;
+        }
+
+        .prize-slide-inner:hover {
+            transform: translateY(-8px);
+            border-color: rgba(172, 225, 95, 0.5);
+            box-shadow: 0 30px 80px rgba(172, 225, 95, 0.3);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .prize-slide-image {
+            background: linear-gradient(135deg, #0a0a0a 0%, #000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prize-slide-image::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(172, 225, 95, 0.15) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+
+        .prize-slide-image img {
+            width: 100%;
+            height: 100%;
+            max-width: 550px;
+            max-height: 550px;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.6));
+            transition: transform 0.6s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .prize-slide-inner:hover .prize-slide-image img {
+            transform: scale(1.08) rotate(2deg);
+        }
+
+        .prize-slide-content {
+            padding: 80px 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .prize-slide-category {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent-green);
+            margin-bottom: 25px;
+        }
+
+        .prize-slide-title {
+            font-size: clamp(48px, 6vw, 64px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 30px;
+            line-height: 0.95;
+            text-transform: uppercase;
+        }
+
+        .prize-slide-desc {
+            font-size: 20px;
+            line-height: 1.7;
+            opacity: 0.85;
+            font-weight: 300;
+        }
+
+        /* Carousel Navigation Dots */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 40px;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .carousel-dot:hover {
+            background: rgba(172, 225, 95, 0.5);
+            transform: scale(1.2);
+        }
+
+        .carousel-dot.active {
+            background: var(--accent-green);
+            width: 32px;
+            border-radius: 6px;
+        }
+
+        .prize-closing-statement {
+            text-align: center;
+            margin-top: 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .prize-closing-text {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.2;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .prize-final-statement {
+            text-align: center;
+            padding: 80px 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .winner-badge-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .winner-medal {
+            width: 180px;
+            height: 180px;
+            position: relative;
+            animation: medal-float 3s ease-in-out infinite;
+        }
+
+        @keyframes medal-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .medal-circle {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, var(--accent-green) 0%, #8bc34a 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 20px 60px rgba(172, 225, 95, 0.4),
+                inset 0 -5px 20px rgba(0, 0, 0, 0.2),
+                inset 0 5px 20px rgba(255, 255, 255, 0.3);
+            position: relative;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .medal-circle::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+
+        .medal-circle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+            transform: translate(-50%, -50%);
+            animation: medal-shine 3s ease-in-out infinite;
+        }
+
+        @keyframes medal-shine {
+            0%, 100% { opacity: 0; transform: translate(-50%, -50%) rotate(0deg); }
+            50% { opacity: 1; transform: translate(-50%, -50%) rotate(180deg); }
+        }
+
+        .medal-number {
+            font-size: 72px;
+            font-weight: 900;
+            color: var(--primary-black);
+            z-index: 2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .medal-ribbon {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 80px;
+            z-index: 1;
+        }
+
+        .ribbon-left, .ribbon-right {
+            position: absolute;
+            top: 0;
+            width: 30px;
+            height: 80px;
+            background: linear-gradient(180deg, var(--accent-green) 0%, #7cb342 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 70%, 0 85%);
+        }
+
+        .ribbon-left {
+            left: 0;
+            transform: rotate(-10deg);
+            transform-origin: top center;
+            animation: ribbon-wave-left 2s ease-in-out infinite;
+        }
+
+        .ribbon-right {
+            right: 0;
+            transform: rotate(10deg);
+            transform-origin: top center;
+            animation: ribbon-wave-right 2s ease-in-out infinite;
+        }
+
+        @keyframes ribbon-wave-left {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(-15deg); }
+        }
+
+        @keyframes ribbon-wave-right {
+            0%, 100% { transform: rotate(10deg); }
+            50% { transform: rotate(15deg); }
+        }
+
+        .prize-final-text {
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.2;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .manifesto-container {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .companion-container {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .participate-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-vertical::before {
+                display: none;
+            }
+
+            .step-item {
+                padding-left: 0;
+            }
+
+            .manifesto-section,
+            .challenge-statement,
+            .companion-section,
+            .participate-section,
+            .prize-section {
+                padding: 60px 30px;
+            }
+
+            .prize-carousel {
+                padding: 0 30px 40px;
+            }
+
+            .prize-slide {
+                flex: 0 0 95%;
+            }
+
+            .prize-slide-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .prize-slide-image {
+                padding: 60px 40px;
+                min-height: 350px;
+            }
+
+            .prize-slide-content {
+                padding: 40px 30px;
+            }
+
+            .prize-slide-title {
+                font-size: 36px;
+            }
+        }
+
+        /* FINAL PRODUCTION STYLES */
+        
+        /* Manifesto Section - Premium Campaign Style */
+        .manifesto-section {
+            padding: 100px 60px;
+            background: var(--primary-black);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .manifesto-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(172, 225, 95, 0.08) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            animation: pulse-glow 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        .manifesto-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .manifesto-block {
+            text-align: left;
+        }
+
+        .manifesto-title {
+            font-size: clamp(56px, 7vw, 80px);
+            font-weight: 900;
+            letter-spacing: -3px;
+            margin-bottom: 30px;
+            line-height: 0.95;
+            text-transform: uppercase;
+        }
+
+        .manifesto-title.secondary {
+            font-size: clamp(56px, 7vw, 80px);
+        }
+
+        .manifesto-text {
+            font-size: 20px;
+            line-height: 1.6;
+            opacity: 0.85;
+            font-weight: 300;
+            max-width: 500px;
+        }
+
+        /* Challenge Statement - Nike Epic Style with White Background */
+        .challenge-statement {
+            padding: 150px 60px;
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+            border-top: 2px solid var(--accent-green);
+            border-bottom: 2px solid var(--accent-green);
+        }
+
+        .challenge-statement::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(
+                circle,
+                rgba(172, 225, 95, 0.08) 0%,
+                transparent 70%
+            );
+            transform: translate(-50%, -50%);
+            animation: pulse-energy 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-energy {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.6;
+            }
+        }
+
+        .challenge-content-horizontal {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .challenge-title-left {
+            font-size: clamp(56px, 8vw, 80px);
+            font-weight: 900;
+            letter-spacing: -4px;
+            line-height: 1.1;
+            text-transform: uppercase;
+            text-align: left;
+            color: var(--primary-black);
+        }
+
+        .challenge-phrases-right {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .challenge-phrase {
+            font-size: clamp(28px, 4vw, 48px);
+            font-weight: 300;
+            letter-spacing: -1px;
+            position: relative;
+            padding: 15px 40px;
+            overflow: hidden;
+            color: var(--primary-black);
+        }
+
+        /* Green wipe animation */
+        .challenge-phrase::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-green);
+            transform: scaleX(0);
+            transform-origin: left;
+            z-index: -1;
+        }
+
+        .challenge-phrase.revealed::before {
+            animation: green-wipe 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes green-wipe {
+            0% {
+                transform: scaleX(0);
+                transform-origin: left;
+            }
+            50% {
+                transform: scaleX(1);
+                transform-origin: left;
+            }
+            51% {
+                transform: scaleX(1);
+                transform-origin: right;
+            }
+            100% {
+                transform: scaleX(0);
+                transform-origin: right;
+            }
+        }
+
+        .challenge-phrase:nth-child(3) {
+            font-weight: 700;
+        }
+
+        /* Text color transition */
+        .challenge-phrase {
+            color: var(--primary-black);
+        }
+
+        .challenge-phrase.revealed {
+            animation: text-flash-white 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes text-flash-white {
+            0%, 100% {
+                color: var(--primary-black);
+            }
+            40%, 60% {
+                color: var(--primary-white);
+            }
+        }
+
+        .challenge-phrase.revealed::before {
+            transform: scaleX(1);
+            animation: wipe-out 0.6s 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes wipe-out {
+            to {
+                transform: scaleX(0);
+                transform-origin: right;
+            }
+        }
+
+        /* Individual phrase styling */
+        .challenge-phrase:nth-child(1) {
+            font-weight: 600;
+            color: var(--accent-green);
+        }
+
+        .challenge-phrase:nth-child(2) {
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        .challenge-phrase:nth-child(3) {
+            font-weight: 700;
+            font-size: clamp(32px, 5vw, 56px);
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        /* Dot separator animation */
+        .challenge-phrase::after {
+            content: '•';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: var(--accent-green);
+            opacity: 0;
+            animation: dot-pulse 1.5s ease-in-out infinite;
+        }
+
+        .challenge-phrase:last-child::after {
+            content: '';
+        }
+
+        @keyframes dot-pulse {
+            0%, 100% { opacity: 0; transform: translateY(-50%) scale(0.8); }
+            50% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+        }
+
+        /* Glitch effect on hover */
+        .challenge-title:hover {
+            animation: glitch 0.3s ease-in-out;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+
+
+
+
+
+
+        /* Scroll Animations - removed initial hidden state */
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <img src="Gesa-Blanco.png" alt="Gesa" class="logo-img">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#reto">El Reto</a></li>
+            <li><a href="#participar">Participar</a></li>
+            <li><a href="#premio">Premio</a></li>
+        </ul>
+        <div class="nav-strava">
+            <img src="strava-1.png" alt="Strava" class="strava-logo">
+        </div>
+    </nav>
+
+    <!-- Hero Section - Redesigned with Impact -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-grain"></div>
+        
+        <div class="hero-layout">
+            <div class="hero-left">
+                <h1 class="hero-title-new">
+                    <span class="hero-line hero-line-1">KILÓMETROS</span>
+                    <span class="hero-line hero-line-2">QUE</span>
+                    <span class="hero-line hero-line-3">SUMAN</span>
+                </h1>
+            </div>
+            
+            <div class="hero-bottom-right">
+                <a href="https://www.strava.com/clubs/gesa" target="_blank" class="cta-button-new primary">
+                    <span class="cta-text">Únete ahora con Strava</span>
+                    <span class="cta-glow"></span>
+                </a>
+                <button class="cta-button-new secondary" onclick="document.querySelector('#participar').scrollIntoView({behavior: 'smooth'})">
+                    <span class="cta-border"></span>
+                    ¿De qué se trata?
+                </button>
+            </div>
+            
+            <!-- Microdetalle premium -->
+            <div class="hero-meta">
+                <span>30 días</span>
+                <span class="meta-dot">·</span>
+                <span>España</span>
+                <span class="meta-dot">·</span>
+                <span>Solo 1 ganador</span>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Manifesto Section - Premium Campaign Style -->
+    <section class="manifesto-section">
+        <div class="manifesto-container">
+            <div class="manifesto-block">
+                <h2 class="manifesto-title">MÁS QUE<br>UN RETO</h2>
+                <p class="manifesto-text">Una oportunidad para transformar tu vida y la de los demás. Luis León te guía en esta causa que va más allá de cualquier meta personal.</p>
+            </div>
+            
+            <div class="manifesto-block">
+                <h2 class="manifesto-title secondary">COMPROMISO<br>SOCIAL</h2>
+                <p class="manifesto-text">El deporte es una herramienta poderosa. Los kilómetros que sumes generarán un impacto positivo en la comunidad.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenge Statement - Nike Epic Style Horizontal -->
+    <section class="challenge-statement">
+        <div class="challenge-content-horizontal">
+            <h2 class="challenge-title-left">¿LISTO PARA<br>EL RETO?</h2>
+            <div class="challenge-phrases-right">
+                <p class="challenge-phrase">Un mes.</p>
+                <p class="challenge-phrase">Un leaderboard.</p>
+                <p class="challenge-phrase">Un ganador.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Companion Section - Premium Campaign Style -->
+    <section class="companion-section">
+        <div class="companion-container">
+            <div class="companion-visual">
+                <img src="bike.png" alt="Cyclist" class="companion-img">
+            </div>
+            <div class="companion-content">
+                <h2 class="companion-title">TU COMPAÑERO EN CADA KILÓMETRO</h2>
+                <p class="companion-text">Cada kilómetro suma.</p>
+                <p class="companion-text">Cada esfuerzo construye algo más grande.</p>
+                <p class="companion-text">Este reto no es solo movimiento.</p>
+                <p class="companion-text">Es comunidad. Es compromiso. Es avance.</p>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- How to Participate - Premium Challenge Pass -->
+    <section class="participate-section" id="participar">
+        <div class="participate-container">
+            <h2 class="participate-title">¿CÓMO PARTICIPAR?</h2>
+            
+            <div class="participate-layout">
+                <!-- Left: Vertical Steps with Connecting Line -->
+                <div class="steps-vertical">
+                    <div class="step-item">
+                        <span class="step-num">01</span>
+                        <h3 class="step-heading">ÚNETE AL RETO</h3>
+                        <p class="step-desc">No es registrarte. Es comprometerte. Descarga Strava y busca "Kilómetros que Suman".</p>
+                    </div>
+                    
+                    <div class="step-item">
+                        <span class="step-num">02</span>
+                        <h3 class="step-heading">SUMA CADA KILÓMETRO</h3>
+                        <p class="step-desc">Solo ciclismo. Todo tipo de ciclismo cuenta. Cada pedalada suma, cada ruta construye tu victoria.</p>
+                    </div>
+                    
+                    <div class="step-item">
+                        <span class="step-num">03</span>
+                        <h3 class="step-heading">ESCALA EL LEADERBOARD</h3>
+                        <p class="step-desc">Cada día cuenta. Sigue tu progreso en tiempo real. El que más kilómetros acumule, gana.</p>
+                    </div>
+                </div>
+                
+                <!-- Right: Challenge Pass Card -->
+                <div class="challenge-pass-wrapper">
+                    <div class="challenge-pass" id="challengePass">
+                        <div class="pass-header">
+                            <span>ESPAÑA</span>
+                            <span class="pass-header-badge">MARZO 2026</span>
+                        </div>
+                        
+                        <h2 class="pass-title">RETO:<br>KILÓMETROS<br>QUE SUMAN</h2>
+                        
+                        <div class="pass-divider"></div>
+                        
+                        <!-- Winner Badge Inside Card -->
+                        <div class="pass-winner-badge">
+                            <div class="winner-number">1</div>
+                            <span class="winner-text">Solo habrá un ganador</span>
+                        </div>
+                        
+                        <div class="pass-divider"></div>
+                        
+                        <div class="pass-details">
+                            <div class="pass-detail-item">
+                                <h4>DURACIÓN</h4>
+                                <p>30 DÍAS</p>
+                            </div>
+                            <div class="pass-detail-item">
+                                <h4>PLATAFORMA</h4>
+                                <p>STRAVA</p>
+                            </div>
+                            <div class="pass-detail-item">
+                                <h4>REGIÓN</h4>
+                                <p>ESPAÑA</p>
+                            </div>
+                        </div>
+                        
+                        <div class="pass-divider"></div>
+                        
+                        <div class="progress-section">
+                            <p class="progress-label">30 DÍAS DE RETO</p>
+                            <div class="progress-bar-thin">
+                                <div class="progress-fill-animated" id="progressFill"></div>
+                            </div>
+                        </div>
+                        
+                        <p class="pass-microcopy">Sigue el reto en tiempo real. Únete a la comunidad en Instagram.</p>
+                        
+                        <div class="pass-divider"></div>
+                        
+                        <div class="pass-actions">
+                            <a href="https://www.strava.com/clubs/gesa" target="_blank" class="pass-btn-primary">Únete ahora</a>
+                            <a href="https://www.instagram.com/gesaseguros/" target="_blank" class="pass-link-secondary">
+                                <span class="ig-icon">📷</span> Seguir en Instagram
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Prize Section - Nike Horizontal Carousel -->
+    <section class="prize-section" id="premio">
+        <div class="prize-header">
+            <h2 class="prize-main-title">EL PREMIO FINAL</h2>
+            <p class="prize-intro-text">Cuando el reto finalice, se revisará la clasificación en Strava. La persona con más kilómetros acumulados será proclamada ganadora y recibirá:</p>
+        </div>
+        
+        <!-- Prize Question Block -->
+        <div class="prize-question-block">
+            <p class="question-text">¿De qué habrá servido todo el esfuerzo?</p>
+            <p class="question-answer">Si has sido el que más ha pedaleado, te llevarás este pack de regalos valorados en <span class="highlight-value">+500€</span></p>
+        </div>
+        
+        <!-- Horizontal Scroll Carousel -->
+        <div class="prize-carousel-wrapper">
+            <div class="prize-carousel" id="prizeCarousel">
+                <!-- Card 1: Glasses -->
+                <div class="prize-slide">
+                    <div class="prize-slide-inner">
+                        <div class="prize-slide-image">
+                            <img src="gafas1.png" alt="Rudy Project Astral X">
+                        </div>
+                        <div class="prize-slide-content">
+                            <p class="prize-slide-category">GAFAS</p>
+                            <h3 class="prize-slide-title">Rudy Project<br>Astral X</h3>
+                            <p class="prize-slide-desc">Visión cristalina en condiciones extremas. Tecnología de lentes adaptativas para máximo rendimiento.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 2: Helmet -->
+                <div class="prize-slide">
+                    <div class="prize-slide-inner">
+                        <div class="prize-slide-image">
+                            <img src="casco1.png" alt="Rudy Project Nytron">
+                        </div>
+                        <div class="prize-slide-content">
+                            <p class="prize-slide-category">CASCO</p>
+                            <h3 class="prize-slide-title">Rudy Project<br>Nytron</h3>
+                            <p class="prize-slide-desc">Máxima protección y comodidad. Diseño aerodinámico con ventilación optimizada.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 3: Jersey -->
+                <div class="prize-slide">
+                    <div class="prize-slide-inner">
+                        <div class="prize-slide-image">
+                            <img src="Gesa-Blanco.png" alt="Maillot Gesa">
+                        </div>
+                        <div class="prize-slide-content">
+                            <p class="prize-slide-category">EQUIPACIÓN</p>
+                            <h3 class="prize-slide-title">Maillot<br>Personalizado</h3>
+                            <p class="prize-slide-desc">Diseño exclusivo de alta calidad. Tejido técnico transpirable para máximo confort.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 4: Kit -->
+                <div class="prize-slide">
+                    <div class="prize-slide-inner">
+                        <div class="prize-slide-image">
+                            <img src="bike.png" alt="Kit Completo">
+                        </div>
+                        <div class="prize-slide-content">
+                            <p class="prize-slide-category">PACK COMPLETO</p>
+                            <h3 class="prize-slide-title">Kit Completo<br>de Ciclista</h3>
+                            <p class="prize-slide-desc">Equipamiento completo con marca Gesa. Todo lo que necesitas para destacar.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation Dots -->
+            <div class="carousel-dots">
+                <button class="carousel-dot active" data-slide="0"></button>
+                <button class="carousel-dot" data-slide="1"></button>
+                <button class="carousel-dot" data-slide="2"></button>
+                <button class="carousel-dot" data-slide="3"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="unirse">
+        <div class="footer-content">
+            <div>
+                <div class="footer-brand">GESA</div>
+                <p class="footer-tagline">Kilómetros que suman. Vidas que cambian.</p>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/gesaseguros/" target="_blank" class="social-link">Instagram</a>
+                    <a href="https://www.facebook.com/segurosgesa/" target="_blank" class="social-link">Facebook</a>
+                    <a href="https://www.linkedin.com/company/gesa-corredur%C3%ADa-de-seguros/posts/?feedView=all" target="_blank" class="social-link">LinkedIn</a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Reto</h4>
+                <ul>
+                    <li><a href="#">Cómo participar</a></li>
+                    <li><a href="#">Reglas</a></li>
+                    <li><a href="#">Premios</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="#">Soporte</a></li>
+                    <li><a href="#">Prensa</a></li>
+                    <li><a href="#">Legal</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 Gesa x Luis León. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script>
+        // GSAP ScrollTrigger Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero background parallax - Subtle
+        gsap.to('.hero-bg', {
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1.5
+            },
+            y: 150,
+            scale: 1.08,
+            ease: 'none'
+        });
+
+        // Split section animations
+        gsap.utils.toArray('.split-left, .split-right').forEach(section => {
+            gsap.from(section.querySelectorAll('.fade-in, .fade-up'), {
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 70%',
+                    end: 'bottom 20%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                y: 60,
+                stagger: 0.2,
+                duration: 1,
+                ease: 'power3.out'
+            });
+        });
+
+        // Glass cards animation
+        gsap.utils.toArray('.glass-card').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                scale: 0.9,
+                y: 50,
+                duration: 0.8,
+                delay: i * 0.15,
+                ease: 'power3.out'
+            });
+        });
+
+        // Statement section
+        gsap.from('.statement-text', {
+            scrollTrigger: {
+                trigger: '.statement-section',
+                start: 'top 60%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            y: 100,
+            duration: 1.2,
+            ease: 'power3.out'
+        });
+
+        // Prize section
+        gsap.from('.prize-content .fade-up', {
+            scrollTrigger: {
+                trigger: '.prize-section',
+                start: 'top 70%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            y: 60,
+            stagger: 0.1,
+            duration: 0.8,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.prize-visual', {
+            scrollTrigger: {
+                trigger: '.prize-section',
+                start: 'top 70%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            scale: 0.8,
+            rotation: -10,
+            duration: 1,
+            ease: 'back.out(1.7)'
+        });
+
+        // Prize showcase animations
+        gsap.utils.toArray('.prize-card').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                y: 80,
+                scale: 0.95,
+                duration: 1,
+                delay: i * 0.15,
+                ease: 'power3.out'
+            });
+        });
+
+        gsap.from('.winner-medal', {
+            scrollTrigger: {
+                trigger: '.prize-final-statement',
+                start: 'top 75%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            scale: 0,
+            rotation: -180,
+            duration: 1.2,
+            ease: 'back.out(1.7)'
+        });
+
+        gsap.from('.prize-final-text', {
+            scrollTrigger: {
+                trigger: '.prize-final-statement',
+                start: 'top 75%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            y: 60,
+            duration: 1,
+            delay: 0.5,
+            ease: 'power3.out'
+        });
+
+        // Challenge statement animation - Nike Epic Style
+        gsap.from('.challenge-title', {
+            scrollTrigger: {
+                trigger: '.challenge-statement',
+                start: 'top 65%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            scale: 0.8,
+            y: 100,
+            duration: 1.2,
+            ease: 'power4.out'
+        });
+
+        // Staggered phrase reveal with wipe effect
+        const phrases = document.querySelectorAll('.challenge-phrase');
+        phrases.forEach((phrase, i) => {
+            gsap.from(phrase, {
+                scrollTrigger: {
+                    trigger: '.challenge-statement',
+                    start: 'top 65%',
+                    toggleActions: 'play none none reverse',
+                    onEnter: () => {
+                        setTimeout(() => {
+                            phrase.classList.add('revealed');
+                        }, i * 300);
+                    }
+                },
+                opacity: 0,
+                x: -100,
+                duration: 0.8,
+                delay: 0.5 + (i * 0.3),
+                ease: 'power3.out'
+            });
+        });
+
+        // Companion section - scroll animation with parallax
+        gsap.from('.companion-img', {
+            scrollTrigger: {
+                trigger: '.companion-section',
+                start: 'top 70%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            x: -150,
+            duration: 0.9,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.companion-title', {
+            scrollTrigger: {
+                trigger: '.companion-section',
+                start: 'top 70%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            x: 150,
+            duration: 0.8,
+            delay: 0.15,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.companion-text', {
+            scrollTrigger: {
+                trigger: '.companion-section',
+                start: 'top 70%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            x: 150,
+            stagger: 0.1,
+            duration: 0.6,
+            delay: 0.4,
+            ease: 'power3.out'
+        });
+
+        // Subtle parallax on companion section
+        gsap.to('.companion-img', {
+            scrollTrigger: {
+                trigger: '.companion-section',
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1
+            },
+            x: 60
+        });
+
+        gsap.to('.companion-content', {
+            scrollTrigger: {
+                trigger: '.companion-section',
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1
+            },
+            x: -10
+        });
+
+        // Vertical steps animation
+        gsap.utils.toArray('.step-item').forEach((step, i) => {
+            gsap.from(step, {
+                scrollTrigger: {
+                    trigger: step,
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                x: -50,
+                duration: 0.8,
+                delay: i * 0.15,
+                ease: 'power3.out'
+            });
+        });
+
+        // Challenge Pass animation with 3D tilt
+        const challengePass = document.getElementById('challengePass');
+        if (challengePass) {
+            gsap.from(challengePass, {
+                scrollTrigger: {
+                    trigger: challengePass,
+                    start: 'top 75%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                y: 80,
+                scale: 0.95,
+                duration: 1,
+                ease: 'back.out(1.2)'
+            });
+
+            // 3D tilt on mouse move
+            challengePass.addEventListener('mousemove', (e) => {
+                const rect = challengePass.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                
+                challengePass.style.transform = `perspective(1500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            });
+
+            challengePass.addEventListener('mouseleave', () => {
+                challengePass.style.transform = 'perspective(1500px) rotateX(0deg) rotateY(0deg) scale(1)';
+            });
+
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Nav background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(0, 0, 0, 0.8)';
+            } else {
+                nav.style.background = 'rgba(0, 0, 0, 0.3)';
+            }
+        });
+
+        // Challenge Phrases Animation
+        const challengePhrases = document.querySelectorAll('.challenge-phrase');
+        
+        const challengeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const phrases = entry.target.parentElement.querySelectorAll('.challenge-phrase');
+                    phrases.forEach((phrase, index) => {
+                        setTimeout(() => {
+                            phrase.classList.add('revealed');
+                        }, index * 300);
+                    });
+                    challengeObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        if (challengePhrases.length > 0) {
+            challengeObserver.observe(challengePhrases[0].parentElement);
+        }
+
+        // Steps Animation - One by One from Left
+        const stepItems = document.querySelectorAll('.step-item');
+        
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px'
+        };
+
+        const stepObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const steps = entry.target.parentElement.querySelectorAll('.step-item');
+                    // Add will-animate class first
+                    steps.forEach(step => {
+                        step.classList.add('will-animate');
+                    });
+                    // Then animate in one by one
+                    steps.forEach((step, index) => {
+                        setTimeout(() => {
+                            step.classList.add('animate-in');
+                        }, index * 200);
+                    });
+                    stepObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        if (stepItems.length > 0) {
+            stepObserver.observe(stepItems[0].parentElement);
+        }
+
+        // Prize Carousel Navigation
+        const carousel = document.getElementById('prizeCarousel');
+        const dots = document.querySelectorAll('.carousel-dot');
+        
+        if (carousel && dots.length > 0) {
+            // Dot click navigation
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    const slideWidth = carousel.querySelector('.prize-slide').offsetWidth + 40; // slide width + gap
+                    carousel.scrollTo({
+                        left: slideWidth * index,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Update active dot on scroll
+            carousel.addEventListener('scroll', () => {
+                const slideWidth = carousel.querySelector('.prize-slide').offsetWidth + 40;
+                const currentIndex = Math.round(carousel.scrollLeft / slideWidth);
+                
+                dots.forEach((dot, index) => {
+                    if (index === currentIndex) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            });
+
+            // Touch swipe support
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            carousel.addEventListener('mousedown', (e) => {
+                isDown = true;
+                carousel.style.cursor = 'grabbing';
+                startX = e.pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+            });
+
+            carousel.addEventListener('mouseleave', () => {
+                isDown = false;
+                carousel.style.cursor = 'grab';
+            });
+
+            carousel.addEventListener('mouseup', () => {
+                isDown = false;
+                carousel.style.cursor = 'grab';
+            });
+
+            carousel.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 2;
+                carousel.scrollLeft = scrollLeft - walk;
+            });
+        }
+    </script>
+
+</body>
+
+</html>
+
