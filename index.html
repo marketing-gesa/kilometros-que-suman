@@ -723,95 +723,78 @@
         /* Footer */
         footer {
             padding: 80px 60px 40px;
-            background: #000;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--primary-black);
+            border-top: 2px solid var(--accent-green);
+            position: relative;
         }
 
         .footer-content {
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 60px;
+            grid-template-columns: 2fr 1fr;
+            gap: 80px;
             margin-bottom: 60px;
         }
 
-        .footer-brand {
-            font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 20px;
+        .footer-main {
+            text-align: left;
         }
 
-        .footer-tagline {
-            font-size: 16px;
-            opacity: 0.6;
-            font-weight: 300;
-            margin-bottom: 25px;
+        .footer-brand {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 30px;
+            color: var(--accent-green);
+        }
+
+        .footer-manifesto {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.3;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .footer-social {
             display: flex;
-            gap: 20px;
+            gap: 30px;
             margin-top: 20px;
         }
 
-        .social-link {
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            color: var(--primary-white);
-            transition: all 0.3s ease;
-            opacity: 0.7;
-            position: relative;
+        .footer-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            text-align: right;
         }
 
-        .social-link::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-green);
-            transition: width 0.3s ease;
+        .footer-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
         }
 
-        .social-link:hover {
-            opacity: 1;
+        .footer-stat-number {
+            font-size: 36px;
+            font-weight: 900;
             color: var(--accent-green);
+            line-height: 1;
+            font-family: 'Courier New', monospace;
         }
 
-        .social-link:hover::after {
-            width: 100%;
-        }
-
-        .footer-links h4 {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
+        .footer-stat-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            opacity: 0.5;
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 14px;
             opacity: 0.7;
-            transition: opacity 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            opacity: 1;
+            margin-top: 5px;
         }
 
         .footer-bottom {
@@ -820,6 +803,16 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 14px;
             opacity: 0.5;
+        }
+
+        .footer-final-message {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            opacity: 1;
         }
 
         /* Responsive */
@@ -3072,35 +3065,24 @@
         .prize-image-clean {
             width: 100%;
             height: 300px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 25px;
             position: relative;
             overflow: hidden;
-            border-radius: 8px;
+            border-radius: 12px;
         }
 
         .prize-image-clean::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(172, 225, 95, 0.05) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
+            display: none;
         }
 
         .prize-image-clean img {
-            width: 70%;
-            height: 70%;
-            object-fit: contain;
-            filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.4));
-            position: relative;
-            z-index: 2;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
             transition: transform 0.4s ease;
         }
 
@@ -3110,6 +3092,9 @@
 
         .prize-placeholder {
             background: rgba(172, 225, 95, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .placeholder-text-clean {
@@ -4595,7 +4580,7 @@
         }
 
         .statement-large {
-            font-size: clamp(36px, 6vw, 72px);
+            font-size: clamp(48px, 8vw, 96px);
             font-weight: 900;
             letter-spacing: -2px;
             line-height: 0.9;
@@ -4620,7 +4605,224 @@
             max-width: 500px;
         }
 
-        /* Challenge Statement - Nike Epic Style with White Background */
+        /* Live Stats Section */
+        .live-stats {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            margin-top: 100px;
+            padding: 60px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 900;
+            color: var(--accent-green);
+            line-height: 1;
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            font-family: 'Courier New', monospace;
+        }
+
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: var(--accent-green);
+            opacity: 0;
+            animation: stat-underline 2s ease 1s forwards;
+        }
+
+        @keyframes stat-underline {
+            to {
+                opacity: 1;
+                width: 60px;
+            }
+        }
+
+        /* Testimonial Section */
+        .testimonial-section {
+            padding: 150px 60px;
+            background: var(--primary-black);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(172, 225, 95, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(172, 225, 95, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .testimonial-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-quote blockquote {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 900;
+            line-height: 1.2;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            margin: 0 0 40px 0;
+            position: relative;
+        }
+
+        .testimonial-quote blockquote::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: -40px;
+            font-size: 120px;
+            color: var(--accent-green);
+            opacity: 0.3;
+            font-family: serif;
+        }
+
+        .testimonial-name {
+            display: block;
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--accent-green);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .testimonial-title {
+            font-size: 16px;
+            font-weight: 400;
+            opacity: 0.7;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Why Now Section */
+        .why-now-section {
+            padding: 150px 60px;
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-now-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .why-now-title {
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 900;
+            letter-spacing: -3px;
+            text-transform: uppercase;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .why-now-content {
+            margin-bottom: 80px;
+        }
+
+        .why-now-text {
+            font-size: clamp(24px, 4vw, 40px);
+            font-weight: 300;
+            line-height: 1.4;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .why-now-highlight {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 900;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .why-now-highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 4px;
+            background: var(--accent-green);
+            animation: highlight-underline 1.5s ease 0.5s forwards;
+        }
+
+        @keyframes highlight-underline {
+            to {
+                width: 100%;
+            }
+        }
+
+        .urgency-stats {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            margin-top: 60px;
+        }
+
+        .urgency-item {
+            text-align: center;
+        }
+
+        .urgency-number {
+            display: block;
+            font-size: clamp(48px, 6vw, 80px);
+            font-weight: 900;
+            color: var(--accent-green);
+            line-height: 1;
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .urgency-label {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
         .challenge-statement {
             padding: 150px 60px;
             background: #ffffff;
@@ -4829,6 +5031,75 @@
             0%, 100% { opacity: 0; transform: translateX(-100%); }
             50% { opacity: 1; transform: translateX(100%); }
         }
+
+        /* Countdown Timer */
+        .countdown-section {
+            margin-top: 60px;
+            text-align: center;
+            padding: 40px 0;
+            border-top: 2px solid var(--accent-green);
+            background: rgba(172, 225, 95, 0.05);
+        }
+
+        .countdown-title {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--primary-black);
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .countdown-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .countdown-number {
+            display: block;
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 900;
+            color: var(--primary-black);
+            line-height: 1;
+            margin-bottom: 8px;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .countdown-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary-black);
+            opacity: 0.7;
+            font-family: 'Courier New', monospace;
+        }
+
+        .countdown-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, var(--accent-green), transparent);
+            opacity: 0;
+            animation: countdown-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes countdown-pulse {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0.5; }
+        }
         .challenge-phrase:nth-child(1) {
             font-weight: 600;
             color: var(--accent-green);
@@ -5024,7 +5295,7 @@
             }
 
             .statement-large {
-                font-size: clamp(28px, 7vw, 42px) !important;
+                font-size: clamp(32px, 8vw, 48px) !important;
                 line-height: 1.1;
                 letter-spacing: -1px;
                 max-width: 100%;
@@ -5244,7 +5515,104 @@
 
             .footer-content {
                 grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-main {
+                text-align: center;
+            }
+
+            .footer-brand {
+                font-size: 36px;
+            }
+
+            .footer-manifesto {
+                font-size: 18px;
+            }
+
+            .footer-stats {
+                flex-direction: row;
+                justify-content: center;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .footer-stat {
+                align-items: center;
+            }
+
+            .footer-stat-number {
+                font-size: 24px;
+            }
+
+            /* Live stats mobile */
+            .live-stats {
+                flex-direction: column;
+                gap: 40px;
+                margin-top: 60px;
+                padding: 40px 0;
+            }
+
+            .stat-number {
+                font-size: 36px;
+            }
+
+            /* Countdown mobile */
+            .countdown-section {
+                padding: 30px 0;
+                margin-top: 40px;
+            }
+
+            .countdown-timer {
+                gap: 15px;
+            }
+
+            .countdown-number {
+                font-size: 24px;
+            }
+
+            .countdown-label {
+                font-size: 9px;
+            }
+
+            /* Testimonial mobile */
+            .testimonial-section {
+                padding: 80px 20px;
+            }
+
+            .testimonial-quote blockquote {
+                font-size: 24px;
+            }
+
+            .testimonial-name {
+                font-size: 18px;
+            }
+
+            /* Why Now mobile */
+            .why-now-section {
+                padding: 80px 20px;
+            }
+
+            .why-now-title {
+                font-size: 48px;
+                margin-bottom: 40px;
+            }
+
+            .why-now-text {
+                font-size: 20px;
+            }
+
+            .why-now-highlight {
+                font-size: 28px;
+            }
+
+            .urgency-stats {
+                flex-direction: column;
                 gap: 30px;
+            }
+
+            .urgency-number {
+                font-size: 48px;
             }
         }
 
@@ -5273,7 +5641,7 @@
             }
 
             .statement-large {
-                font-size: 24px !important;
+                font-size: 28px !important;
                 line-height: 1.1;
                 letter-spacing: -1px;
             }
@@ -5347,17 +5715,23 @@
                     <span class="hero-line hero-line-2">QUE</span>
                     <span class="hero-line hero-line-3">SUMAN</span>
                 </h1>
+                
+                <!-- Nike-style subtitle block -->
+                <div class="hero-subtitle-block">
+                    <p class="hero-subtitle-main">NO ESPERES. ACTÚA.</p>
+                    <p class="hero-subtitle-secondary">Únete a 147 ciclistas que ya están escribiendo su leyenda</p>
+                </div>
             </div>
             
             
             <div class="hero-bottom-right">
                 <a href="https://www.strava.com/clubs/gesa" target="_blank" class="cta-button-new primary">
-                    <span class="cta-text">Únete ahora con Strava</span>
+                    <span class="cta-text">DEMUESTRA QUIÉN ERES</span>
                     <span class="cta-glow"></span>
                 </a>
                 <button class="cta-button-new secondary" onclick="document.querySelector('#participar').scrollIntoView({behavior: 'smooth'})">
                     <span class="cta-border"></span>
-                    ¿De qué se trata?
+                    ¿Tienes lo que se necesita?
                 </button>
             </div>
             
@@ -5382,11 +5756,11 @@
             
             <!-- Microdetalle premium -->
             <div class="hero-meta">
-                <span>30 días</span>
+                <span>QUEDAN 23 DÍAS</span>
                 <span class="meta-dot">·</span>
-                <span>España</span>
+                <span>147 CICLISTAS</span>
                 <span class="meta-dot">·</span>
-                <span>Solo 1 ganador</span>
+                <span>SOLO 1 GANADOR</span>
             </div>
         </div>
         
@@ -5400,13 +5774,29 @@
     <section class="manifesto-section">
         <div class="manifesto-container">
             <div class="manifesto-block">
-                <h2 class="manifesto-title">MÁS QUE<br>UN RETO</h2>
-                <p class="manifesto-text">Una oportunidad para transformar tu vida y la de los demás. Luis León te guía en esta causa que va más allá de cualquier meta personal.</p>
+                <h2 class="manifesto-title">NO SE TRATA<br>DE LA BICICLETA</h2>
+                <p class="manifesto-text">Se trata del ciclista. De quién te conviertes cuando nadie te ve. Cuando el camino se pone difícil y solo queda tu voluntad.</p>
             </div>
             
             <div class="manifesto-block">
-                <div class="statement-large">EL DEPORTE<br>TRANSFORMA</div>
-                <p class="manifesto-text">Los kilómetros que sumes generarán un impacto positivo en la comunidad.</p>
+                <div class="statement-large">CADA PEDALADA<br>ES UNA DECLARACIÓN</div>
+                <p class="manifesto-text">No mañana. No la próxima semana. Tu mejor versión te está esperando ahora.</p>
+            </div>
+        </div>
+        
+        <!-- Stats en tiempo real -->
+        <div class="live-stats">
+            <div class="stat-item">
+                <span class="stat-number" data-target="8247">0</span>
+                <span class="stat-label">KM RECORRIDOS HOY</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="147">0</span>
+                <span class="stat-label">CICLISTAS ACTIVOS</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="23">0</span>
+                <span class="stat-label">DÍAS RESTANTES</span>
             </div>
         </div>
     </section>
@@ -5414,11 +5804,49 @@
     <!-- Challenge Statement - Nike Epic Style Horizontal -->
     <section class="challenge-statement">
         <div class="challenge-content-horizontal">
-            <h2 class="challenge-title-left">¿LISTO PARA<br>EL RETO?</h2>
+            <h2 class="challenge-title-left">EL MOMENTO<br>ES AHORA</h2>
             <div class="challenge-phrases-right">
-                <p class="challenge-phrase phrase-counter">30 días.</p>
-                <p class="challenge-phrase">Una clasificación.</p>
-                <p class="challenge-phrase phrase-winner">Un ganador.</p>
+                <p class="challenge-phrase phrase-counter">23 días para la gloria.</p>
+                <p class="challenge-phrase">Una oportunidad para demostrar quién eres.</p>
+                <p class="challenge-phrase phrase-winner">¿Tienes lo que se necesita?</p>
+            </div>
+        </div>
+        
+        <!-- Countdown Timer -->
+        <div class="countdown-section">
+            <div class="countdown-title">TIEMPO RESTANTE</div>
+            <div class="countdown-timer">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">23</span>
+                    <span class="countdown-label">DÍAS</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">14</span>
+                    <span class="countdown-label">HORAS</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">27</span>
+                    <span class="countdown-label">MIN</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">43</span>
+                    <span class="countdown-label">SEG</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Luis León Testimonial -->
+    <section class="testimonial-section">
+        <div class="testimonial-container">
+            <div class="testimonial-quote">
+                <blockquote>
+                    "HE GANADO ETAPAS EN EL TOUR DE FRANCIA, PERO NADA SE COMPARA CON VER A ALGUIEN DESCUBRIR SU VERDADERO POTENCIAL. ESE ES EL VERDADERO TRIUNFO."
+                </blockquote>
+                <cite>
+                    <span class="testimonial-name">LUIS LEÓN SÁNCHEZ</span>
+                    <span class="testimonial-title">Embajador del Reto</span>
+                </cite>
             </div>
         </div>
     </section>
@@ -5522,6 +5950,33 @@
         </div>
     </section>
 
+    <!-- Why Now Section -->
+    <section class="why-now-section">
+        <div class="why-now-container">
+            <h2 class="why-now-title">EL MOMENTO ES AHORA</h2>
+            <div class="why-now-content">
+                <p class="why-now-text">No mañana.</p>
+                <p class="why-now-text">No la próxima semana.</p>
+                <p class="why-now-text">No cuando tengas más tiempo.</p>
+                <p class="why-now-highlight">TU MEJOR VERSIÓN TE ESTÁ ESPERANDO.</p>
+            </div>
+            <div class="urgency-stats">
+                <div class="urgency-item">
+                    <span class="urgency-number">23</span>
+                    <span class="urgency-label">DÍAS RESTANTES</span>
+                </div>
+                <div class="urgency-item">
+                    <span class="urgency-number">1</span>
+                    <span class="urgency-label">OPORTUNIDAD</span>
+                </div>
+                <div class="urgency-item">
+                    <span class="urgency-number">∞</span>
+                    <span class="urgency-label">EXCUSAS</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
 
     <!-- Prize Section - Nike Dramatic Style -->
@@ -5571,13 +6026,33 @@
     <!-- Footer -->
     <footer id="unirse">
         <div class="footer-content">
-            <div>
+            <div class="footer-main">
                 <div class="footer-brand">GESA</div>
-                <p class="footer-tagline">Kilómetros que suman. Vidas que cambian.</p>
+                <p class="footer-manifesto">KILÓMETROS QUE SUMAN.<br>VIDAS QUE CAMBIAN.<br>LEYENDAS QUE NACEN.</p>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/gesaseguros/" target="_blank" class="social-link">Instagram</a>
+                    <a href="https://www.facebook.com/gesaseguros" target="_blank" class="social-link">Facebook</a>
+                    <a href="https://www.linkedin.com/company/gesa-seguros" target="_blank" class="social-link">LinkedIn</a>
+                </div>
+            </div>
+            <div class="footer-stats">
+                <div class="footer-stat">
+                    <span class="footer-stat-number">147</span>
+                    <span class="footer-stat-label">Ciclistas</span>
+                </div>
+                <div class="footer-stat">
+                    <span class="footer-stat-number">8,247</span>
+                    <span class="footer-stat-label">KM Recorridos</span>
+                </div>
+                <div class="footer-stat">
+                    <span class="footer-stat-number">23</span>
+                    <span class="footer-stat-label">Días Restantes</span>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">
-            © 2026 Gesa x Luis León. Todos los derechos reservados.
+            <p>© 2026 Gesa x Luis León. Todos los derechos reservados.</p>
+            <p class="footer-final-message">NO ESPERES. ACTÚA. DEMUESTRA QUIÉN ERES.</p>
         </div>
     </footer>
 
@@ -5759,9 +6234,9 @@
                 toggleActions: 'play none none reverse'
             },
             opacity: 0,
-            x: -150,
-            duration: 0.9,
-            ease: 'power3.out'
+            x: 200,
+            duration: 0.6,
+            ease: 'power2.out'
         });
 
         gsap.from('.companion-title', {
@@ -5957,6 +6432,100 @@
                     winnerNumber.style.transform = 'scale(1)';
                 }, 200);
             }, 3000);
+        }
+
+        // Animated counters for stats
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            
+            function updateCounter() {
+                start += increment;
+                if (start < target) {
+                    element.textContent = Math.floor(start).toLocaleString();
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = target.toLocaleString();
+                }
+            }
+            updateCounter();
+        }
+
+        // Animate stats when they come into view
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.dataset.target);
+                    animateCounter(entry.target, target);
+                    statObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        statNumbers.forEach(stat => {
+            statObserver.observe(stat);
+        });
+
+        // Countdown timer (fake but realistic)
+        function updateCountdown() {
+            const days = document.getElementById('days');
+            const hours = document.getElementById('hours');
+            const minutes = document.getElementById('minutes');
+            const seconds = document.getElementById('seconds');
+            
+            if (days && hours && minutes && seconds) {
+                // Simulate countdown
+                let currentSeconds = parseInt(seconds.textContent);
+                let currentMinutes = parseInt(minutes.textContent);
+                let currentHours = parseInt(hours.textContent);
+                let currentDays = parseInt(days.textContent);
+                
+                currentSeconds--;
+                
+                if (currentSeconds < 0) {
+                    currentSeconds = 59;
+                    currentMinutes--;
+                    
+                    if (currentMinutes < 0) {
+                        currentMinutes = 59;
+                        currentHours--;
+                        
+                        if (currentHours < 0) {
+                            currentHours = 23;
+                            currentDays--;
+                        }
+                    }
+                }
+                
+                seconds.textContent = currentSeconds.toString().padStart(2, '0');
+                minutes.textContent = currentMinutes.toString().padStart(2, '0');
+                hours.textContent = currentHours.toString().padStart(2, '0');
+                days.textContent = currentDays.toString();
+            }
+        }
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+
+        // Testimonial quote animation
+        const testimonialQuote = document.querySelector('.testimonial-quote blockquote');
+        if (testimonialQuote) {
+            const words = testimonialQuote.textContent.split(' ');
+            testimonialQuote.innerHTML = words.map(word => `<span class="word">${word}</span>`).join(' ');
+            
+            gsap.from('.word', {
+                scrollTrigger: {
+                    trigger: '.testimonial-section',
+                    start: 'top 60%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                y: 50,
+                stagger: 0.05,
+                duration: 0.8,
+                ease: 'power3.out'
+            });
         }
     </script>
 
