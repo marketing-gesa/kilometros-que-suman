@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -61,12 +62,12 @@
         }
 
         .logo-img {
-            height: 55px;
+            height: 40px;
             width: auto;
         }
 
         .strava-logo {
-            height: 40px;
+            height: 30px;
             width: auto;
         }
 
@@ -98,7 +99,7 @@
             opacity: 0.6;
         }
 
-        /* Hero Section - Redesigned with Impact */
+        /* Hero Section - Dynamic with Movement */
         .hero {
             height: 100vh;
             display: flex;
@@ -117,341 +118,100 @@
             background-image: url('STRAVA.png');
             background-size: cover;
             background-position: center;
+            filter: brightness(0.4);
             transform: scale(1);
             z-index: 1;
-            will-change: transform;
+            animation: hero-zoom 20s ease-in-out infinite alternate;
         }
 
-        /* Dark overlay with lateral gradient */
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                to right,
-                rgba(0, 0, 0, 0.85) 0%,
-                rgba(0, 0, 0, 0.6) 50%,
-                rgba(0, 0, 0, 0.4) 100%
-            );
-            z-index: 2;
+        @keyframes hero-zoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
         }
 
-        /* Cinematic grain texture */
-        .hero-grain {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
-            opacity: 0.4;
-            z-index: 3;
-            pointer-events: none;
-            animation: grain-move 8s steps(10) infinite;
-        }
-
-        @keyframes grain-move {
-            0%, 100% { transform: translate(0, 0); }
-            10% { transform: translate(-5%, -5%); }
-            20% { transform: translate(-10%, 5%); }
-            30% { transform: translate(5%, -10%); }
-            40% { transform: translate(-5%, 15%); }
-            50% { transform: translate(-10%, 5%); }
-            60% { transform: translate(15%, 0); }
-            70% { transform: translate(0, 10%); }
-            80% { transform: translate(-15%, 0); }
-            90% { transform: translate(10%, 5%); }
-        }
-
-        .hero-layout {
+        .hero-content {
             position: relative;
             z-index: 10;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 80px;
+            text-align: center;
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .hero-left {
-            max-width: 800px;
-        }
-
-        /* New Hero Title - Three Lines with Impact */
-        .hero-title-new {
-            margin-bottom: 50px;
-        }
-
-        .hero-line {
-            display: block;
-            font-size: clamp(70px, 13vw, 160px);
+        .hero-title {
+            font-size: clamp(60px, 12vw, 140px);
             font-weight: 900;
-            line-height: 0.85;
-            letter-spacing: -5px;
+            line-height: 0.8;
+            letter-spacing: -4px;
+            margin-bottom: 40px;
             text-transform: uppercase;
             text-shadow: 
                 0 4px 20px rgba(0, 0, 0, 0.9),
-                0 8px 40px rgba(0, 0, 0, 0.8),
-                0 16px 80px rgba(0, 0, 0, 0.6);
-            opacity: 0;
-            transform: translateY(60px);
+                0 8px 40px rgba(0, 0, 0, 0.7),
+                0 16px 80px rgba(0, 0, 0, 0.5);
         }
 
-        .hero-line-1 {
-            animation: hero-line-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+        .hero-title-line1,
+        .hero-title-line3 {
+            display: block;
         }
 
-        .hero-line-2 {
-            font-size: clamp(70px, 13vw, 160px);
-            letter-spacing: -5px;
-            margin-left: 0;
-            opacity: 0.95;
-            animation: hero-line-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+        .hero-title-line2 {
+            display: block;
+            font-size: 0.85em;
         }
 
-        .hero-line-3 {
-            animation: hero-line-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
-        }
-
-        @keyframes hero-line-in {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Subtitle Block */
-        .hero-subtitle-block {
-            opacity: 0;
-            animation: fade-in-up 1s ease 1.2s forwards;
-        }
-
-        .hero-subtitle-main {
-            font-size: clamp(20px, 2.5vw, 32px);
-            font-weight: 700;
-            line-height: 1.3;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
-        }
-
-        .hero-subtitle-secondary {
-            font-size: clamp(14px, 1.5vw, 18px);
+        .hero-description {
+            font-size: clamp(16px, 2vw, 20px);
             font-weight: 400;
-            opacity: 0.8;
-            line-height: 1.5;
-        }
-
-        @keyframes fade-in-up {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* New CTA Buttons */
-        .hero-bottom-right {
-            position: absolute;
-            bottom: 80px;
-            right: 80px;
-            display: flex;
-            flex-direction: row;
-            gap: 20px;
-            opacity: 0;
-            animation: fade-in-up 1s ease 1.5s forwards;
-        }
-
-        .cta-button-new {
-            padding: 20px 45px;
-            font-size: 15px;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 0.3px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            border-radius: 50px;
-            text-transform: none;
-        }
-
-        /* Primary Button - Nike Dominant */
-        .cta-button-new.primary {
-            background-color: var(--accent-green);
-            color: var(--primary-black);
-            box-shadow: 0 8px 30px rgba(172, 225, 95, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .cta-glow {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3), transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-
-        .cta-button-new.primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(172, 225, 95, 0.6);
-            background-color: #9dd34e;
-        }
-
-        .cta-button-new.primary:hover .cta-glow {
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 50px;
             opacity: 1;
+            text-shadow: 
+                0 2px 10px rgba(0, 0, 0, 0.8),
+                0 4px 20px rgba(0, 0, 0, 0.6);
         }
 
-        /* Secondary Button - Nike Ghost */
-        .cta-button-new.secondary {
-            background-color: transparent;
-            color: var(--primary-white);
-            border: 1.5px solid rgba(255, 255, 255, 0.4);
-        }
-
-        .cta-border {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.15);
-            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: -1;
-            border-radius: 50px;
-        }
-
-        .cta-button-new.secondary:hover .cta-border {
-            width: 100%;
-        }
-
-        .cta-button-new.secondary:hover {
-            border-color: rgba(255, 255, 255, 0.8);
-            transform: translateY(-2px);
-        }
-
-        /* Hero Meta - Premium Microdetail */
-        .hero-meta {
-            position: absolute;
-            bottom: 80px;
-            left: 80px;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            opacity: 0.6;
+        .hero-buttons {
             display: flex;
-            gap: 12px;
-            align-items: center;
-            animation: fade-in 1s ease 1.8s forwards;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
-        @keyframes fade-in {
-            from { opacity: 0; }
-            to { opacity: 0.6; }
+        .cta-button {
+            padding: 18px 48px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.3px;
         }
 
-        .meta-dot {
-            opacity: 0.4;
+        .cta-button.primary {
+            background-color: #fff;
+            color: #000;
         }
 
-        /* Scroll Indicator */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-            opacity: 0;
-            animation: fade-in 1s ease 2s forwards;
+        .cta-button.primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
         }
 
-        .scroll-line {
-            width: 1px;
-            height: 60px;
-            background: linear-gradient(
-                to bottom,
-                transparent,
-                rgba(255, 255, 255, 0.5) 50%,
-                transparent
-            );
-            animation: scroll-move 2s ease-in-out infinite;
+        .cta-button.secondary {
+            background-color: transparent;
+            color: #fff;
+            border: 2px solid #fff;
         }
 
-        @keyframes scroll-move {
-            0%, 100% {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            50% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        /* Hero Responsive */
-        @media (max-width: 968px) {
-            .hero-layout {
-                padding: 0 30px;
-                flex-direction: column;
-                justify-content: center;
-            }
-
-            .hero-left {
-                max-width: 100%;
-            }
-
-            .hero-line {
-                font-size: clamp(50px, 12vw, 100px);
-                letter-spacing: -3px;
-            }
-
-            .hero-line-2 {
-                font-size: clamp(50px, 12vw, 100px);
-                letter-spacing: -3px;
-                margin-left: 0;
-            }
-
-            .hero-bottom-right {
-                position: relative;
-                bottom: auto;
-                right: auto;
-                left: auto;
-                margin-top: 40px;
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .cta-button-new {
-                padding: 18px 35px;
-                font-size: 14px;
-                width: 100%;
-            }
-
-            .hero-meta {
-                position: relative;
-                bottom: auto;
-                left: auto;
-                margin-top: 40px;
-                font-size: 9px;
-                gap: 8px;
-                justify-content: center;
-            }
-
-            .scroll-indicator {
-                display: none;
-            }
+        .cta-button.secondary:hover {
+            background-color: #fff;
+            color: #000;
+            transform: scale(1.05);
         }
 
         /* Split Section - Full Screen Scroll */
@@ -735,43 +495,6 @@
             font-size: 16px;
             opacity: 0.6;
             font-weight: 300;
-            margin-bottom: 25px;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .social-link {
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            color: var(--primary-white);
-            transition: all 0.3s ease;
-            opacity: 0.7;
-            position: relative;
-        }
-
-        .social-link::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-green);
-            transition: width 0.3s ease;
-        }
-
-        .social-link:hover {
-            opacity: 1;
-            color: var(--accent-green);
-        }
-
-        .social-link:hover::after {
-            width: 100%;
         }
 
         .footer-links h4 {
@@ -1602,6 +1325,59 @@
             --accent-green-glow: rgba(172, 225, 95, 0.3);
         }
 
+        /* New Hero Layout */
+        .hero-layout {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 80px;
+        }
+
+        .hero-left {
+            max-width: 600px;
+        }
+
+        .hero-left .hero-title {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .hero-left .hero-description {
+            text-align: left;
+            margin: 0;
+        }
+
+        .hero-bottom-right {
+            position: absolute;
+            bottom: 80px;
+            right: 80px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .cta-button.primary {
+            background-color: var(--accent-green);
+            color: var(--primary-black);
+        }
+
+        .cta-button.primary:hover {
+            box-shadow: 0 10px 40px var(--accent-green-glow);
+        }
+
+        .cta-button.secondary {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .cta-button.secondary:hover {
+            background-color: var(--accent-green);
+            color: var(--primary-black);
+        }
+
         /* Compact Glassmorphism Cards */
         .compact-cards-section {
             padding: 60px;
@@ -2383,30 +2159,13 @@
             margin-bottom: 15px;
             letter-spacing: -1px;
             text-transform: uppercase;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
             line-height: 1;
-            position: relative;
-            display: inline-block;
-        }
-
-        .step-heading::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: var(--accent-green);
-            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .step-item:hover .step-heading {
-            transform: translateX(5px);
+            transform: scale(1.05);
             color: var(--accent-green);
-        }
-
-        .step-item:hover .step-heading::after {
-            width: 100%;
         }
 
         .step-desc {
@@ -2414,11 +2173,6 @@
             line-height: 1.7;
             opacity: 0.9;
             font-weight: 400;
-        }
-
-        /* Nike-style emphasis on first word */
-        .step-desc::first-line {
-            font-weight: 700;
         }
 
         .step-desc {
@@ -2440,13 +2194,11 @@
             color: var(--primary-black);
             box-shadow: 
                 0 20px 60px rgba(172, 225, 95, 0.4),
-                0 0 0 1px rgba(255, 255, 255, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3),
-                inset 0 0 60px rgba(255, 255, 255, 0.1);
-            transition: box-shadow 0.4s ease, transform 0.4s ease;
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: box-shadow 0.4s ease, border-color 0.4s ease;
             position: relative;
             overflow: hidden;
-            border: 3px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
         /* Animated gradient overlay */
@@ -2460,7 +2212,7 @@
             background: linear-gradient(
                 45deg,
                 transparent 30%,
-                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0.3) 50%,
                 transparent 70%
             );
             opacity: 0;
@@ -2478,14 +2230,25 @@
             100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
+        /* Subtle pattern overlay */
+        .challenge-pass::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            pointer-events: none;
+            border-radius: 20px;
+        }
+
         .challenge-pass:hover {
             box-shadow: 
                 0 30px 80px rgba(172, 225, 95, 0.5),
-                0 0 0 1px rgba(255, 255, 255, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.5),
-                inset 0 0 80px rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.5);
-            transform: translateY(-5px);
+                0 0 0 1px rgba(255, 255, 255, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
         /* Winner Badge Inside Card */
@@ -2512,18 +2275,18 @@
             font-size: 28px;
             font-weight: 900;
             color: var(--accent-green);
+            animation: number-pulse 2.5s ease-in-out infinite;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            animation: number-appear 3s ease-in-out infinite;
         }
 
-        @keyframes number-appear {
+        @keyframes number-pulse {
             0%, 100% { 
-                opacity: 0;
-                transform: scale(0.5) rotate(-180deg);
+                transform: scale(1);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             }
-            20%, 80% { 
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
+            50% { 
+                transform: scale(1.1);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
             }
         }
 
@@ -2966,63 +2729,23 @@
             font-weight: 300;
         }
 
-        /* Prize Question Block - Professional Nike Layout */
-        .prize-question-block {
-            max-width: 1200px;
-            margin: 100px auto 120px;
-            padding: 0;
-            background: transparent;
-            border: none;
-            position: relative;
-            text-align: center;
-        }
-
-        .question-arrow {
-            display: none;
-        }
-
-        .question-text {
-            font-size: clamp(32px, 5vw, 56px);
-            font-weight: 900;
-            line-height: 1.2;
-            margin-bottom: 40px;
-            letter-spacing: -2px;
-            text-transform: uppercase;
-            opacity: 0;
-            animation: fade-in-up 0.8s ease 0.2s forwards;
-        }
-
-        .question-answer {
-            font-size: clamp(18px, 2.5vw, 24px);
-            line-height: 1.7;
-            max-width: 900px;
-            margin: 0 auto;
-            opacity: 0;
-            animation: fade-in-up 0.8s ease 0.5s forwards;
-            font-weight: 400;
-        }
-
-        .highlight-value {
-            color: var(--accent-green);
-            font-weight: 900;
-            font-size: 1.4em;
-            letter-spacing: -1px;
-            display: inline-block;
-            position: relative;
-        }
-
-        .highlight-value::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--accent-green);
-            opacity: 0.5;
-        }
-
         /* Prize Carousel - Nike Horizontal Scroll */
+        .prize-tension-statement {
+            text-align: center;
+            margin: 60px 0 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .prize-tension-text {
+            font-size: clamp(40px, 6vw, 56px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            text-transform: uppercase;
+            color: var(--primary-white);
+        }
+
         .prize-carousel-wrapper {
             position: relative;
             width: 100%;
@@ -3046,8 +2769,8 @@
         }
 
         .prize-slide {
-            flex: 0 0 90%;
-            max-width: 1200px;
+            flex: 0 0 85%;
+            max-width: 1100px;
             scroll-snap-align: center;
             scroll-snap-stop: always;
         }
@@ -3061,7 +2784,6 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            min-height: 600px;
         }
 
         .prize-slide-inner:hover {
@@ -3076,7 +2798,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 60px;
+            padding: 80px;
             position: relative;
             overflow: hidden;
         }
@@ -3086,9 +2808,9 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(172, 225, 95, 0.15) 0%, transparent 70%);
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(172, 225, 95, 0.1) 0%, transparent 70%);
             transform: translate(-50%, -50%);
             animation: pulse-glow 4s ease-in-out infinite;
         }
@@ -3096,8 +2818,8 @@
         .prize-slide-image img {
             width: 100%;
             height: 100%;
-            max-width: 550px;
-            max-height: 550px;
+            max-width: 450px;
+            max-height: 450px;
             object-fit: contain;
             filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.6));
             transition: transform 0.6s ease;
@@ -3106,38 +2828,38 @@
         }
 
         .prize-slide-inner:hover .prize-slide-image img {
-            transform: scale(1.08) rotate(2deg);
+            transform: scale(1.1) rotate(3deg);
         }
 
         .prize-slide-content {
-            padding: 80px 70px;
+            padding: 80px 60px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
         .prize-slide-category {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--accent-green);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .prize-slide-title {
-            font-size: clamp(48px, 6vw, 64px);
+            font-size: clamp(40px, 5vw, 56px);
             font-weight: 900;
             letter-spacing: -2px;
-            margin-bottom: 30px;
-            line-height: 0.95;
+            margin-bottom: 25px;
+            line-height: 1;
             text-transform: uppercase;
         }
 
         .prize-slide-desc {
-            font-size: 20px;
+            font-size: 18px;
             line-height: 1.7;
-            opacity: 0.85;
+            opacity: 0.8;
             font-weight: 300;
         }
 
@@ -3321,398 +3043,61 @@
             background-clip: text;
         }
 
-        /* Responsive Mobile First */
+        /* Responsive */
         @media (max-width: 968px) {
-            html {
-                font-size: 16px;
-            }
-
-            body {
-                overflow-x: hidden;
-            }
-
-            nav {
-                padding: 15px 20px;
-            }
-
-            .logo-img {
-                height: 35px;
-            }
-
-            .strava-logo {
-                height: 25px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            /* Hero Mobile */
-            .hero {
-                min-height: 100vh;
-                padding: 80px 0 40px;
-            }
-
-            .hero-layout {
-                padding: 0 20px;
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: flex-start;
-                height: auto;
-                min-height: calc(100vh - 120px);
-            }
-
-            .hero-left {
-                max-width: 100%;
-                margin-bottom: 40px;
-            }
-
-            .hero-line {
-                font-size: 48px;
-                letter-spacing: -2px;
-                line-height: 0.9;
-            }
-
-            .hero-line-2 {
-                font-size: 48px;
-                letter-spacing: -2px;
-            }
-
-            .hero-bottom-right {
-                position: relative;
-                bottom: auto;
-                right: auto;
-                left: auto;
-                margin-top: auto;
-                flex-direction: column;
-                width: 100%;
-                gap: 12px;
-            }
-
-            .cta-button-new {
-                padding: 16px 30px;
-                font-size: 14px;
-                width: 100%;
-                border-radius: 40px;
-            }
-
-            .hero-meta {
-                position: relative;
-                bottom: auto;
-                left: auto;
-                margin-top: 30px;
-                font-size: 10px;
-                gap: 10px;
-                justify-content: flex-start;
-                flex-wrap: wrap;
-            }
-
-            /* Manifesto Mobile */
-            .manifesto-section {
-                padding: 50px 20px;
-            }
-
             .manifesto-container {
                 grid-template-columns: 1fr;
-                gap: 50px;
-            }
-
-            .manifesto-title {
-                font-size: 36px;
-                line-height: 1;
-            }
-
-            .manifesto-text {
-                font-size: 16px;
-            }
-
-            /* Challenge Mobile */
-            .challenge-statement {
-                padding: 50px 20px;
-            }
-
-            .challenge-content-horizontal {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .challenge-title-left {
-                font-size: 36px;
-                text-align: left;
-                line-height: 1;
-            }
-
-            .challenge-phrases-right {
-                align-items: flex-start;
-                gap: 15px;
-            }
-
-            .challenge-phrase {
-                font-size: 20px;
-                padding: 12px 30px;
-                text-align: left;
-            }
-
-            /* Companion Mobile */
-            .companion-section {
-                padding: 50px 20px;
+                gap: 60px;
             }
 
             .companion-container {
                 grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .companion-img {
-                width: 100%;
-                max-width: 100%;
-                transform: translateX(0);
-            }
-
-            .companion-content {
-                padding-left: 0;
-                text-align: left;
-            }
-
-            .companion-title {
-                font-size: 32px;
-                line-height: 1;
-            }
-
-            .companion-text {
-                font-size: 16px;
-            }
-
-            /* Participate Mobile */
-            .participate-section {
-                padding: 50px 20px;
-            }
-
-            .participate-title {
-                font-size: 36px;
-                margin-bottom: 50px;
+                gap: 60px;
             }
 
             .participate-layout {
                 grid-template-columns: 1fr;
-                gap: 40px;
             }
 
-            .steps-vertical {
-                gap: 40px;
+            .steps-vertical::before {
+                display: none;
             }
 
             .step-item {
                 padding-left: 0;
             }
 
-            .step-num {
-                font-size: 36px;
-                margin-bottom: 12px;
-            }
-
-            .step-heading {
-                font-size: 20px;
-                margin-bottom: 10px;
-            }
-
-            .step-desc {
-                font-size: 15px;
-            }
-
-            /* Challenge Pass Mobile */
-            .challenge-pass-wrapper {
-                perspective: none;
-            }
-
-            .challenge-pass {
-                padding: 30px 25px;
-                border-radius: 16px;
-            }
-
-            .pass-header {
-                font-size: 10px;
-                margin-bottom: 20px;
-            }
-
-            .pass-title {
-                font-size: 28px;
-                margin-bottom: 25px;
-            }
-
-            .pass-winner-badge {
-                padding: 15px;
-                gap: 12px;
-            }
-
-            .winner-number {
-                width: 40px;
-                height: 40px;
-                font-size: 24px;
-            }
-
-            .winner-text {
-                font-size: 12px;
-            }
-
-            .pass-details {
-                grid-template-columns: 1fr;
-                gap: 15px;
-                margin-bottom: 25px;
-            }
-
-            .pass-detail-item h4 {
-                font-size: 10px;
-            }
-
-            .pass-detail-item p {
-                font-size: 14px;
-            }
-
-            .progress-label {
-                font-size: 9px;
-            }
-
-            .pass-microcopy {
-                font-size: 11px;
-                padding: 12px;
-            }
-
-            .pass-btn-primary {
-                padding: 16px 28px;
-                font-size: 14px;
-            }
-
-            .pass-link-secondary {
-                font-size: 13px;
-            }
-
-            /* Prize Mobile */
+            .manifesto-section,
+            .challenge-statement,
+            .companion-section,
+            .participate-section,
             .prize-section {
-                padding: 50px 20px;
-            }
-
-            .prize-main-title {
-                font-size: 36px;
-                margin-bottom: 20px;
-            }
-
-            .prize-intro-text {
-                font-size: 15px;
-            }
-
-            .prize-question-block {
-                margin: 50px auto 60px;
-            }
-
-            .question-text {
-                font-size: 24px;
-                margin-bottom: 25px;
-            }
-
-            .question-answer {
-                font-size: 16px;
-            }
-
-            .highlight-value {
-                font-size: 1.3em;
+                padding: 60px 30px;
             }
 
             .prize-carousel {
-                padding: 0 20px 30px;
-                gap: 20px;
+                padding: 0 30px 40px;
             }
 
             .prize-slide {
-                flex: 0 0 100%;
+                flex: 0 0 95%;
             }
 
             .prize-slide-inner {
                 grid-template-columns: 1fr;
-                min-height: auto;
             }
 
             .prize-slide-image {
-                padding: 40px 20px;
-                min-height: 280px;
-            }
-
-            .prize-slide-image img {
-                max-width: 250px;
-                max-height: 250px;
+                padding: 60px 40px;
+                min-height: 350px;
             }
 
             .prize-slide-content {
-                padding: 30px 25px;
-            }
-
-            .prize-slide-category {
-                font-size: 12px;
-                margin-bottom: 15px;
+                padding: 40px 30px;
             }
 
             .prize-slide-title {
-                font-size: 32px;
-                margin-bottom: 20px;
-            }
-
-            .prize-slide-desc {
-                font-size: 15px;
-            }
-
-            .carousel-dots {
-                gap: 8px;
-                margin-top: 30px;
-            }
-
-            .carousel-dot {
-                width: 8px;
-                height: 8px;
-            }
-
-            .carousel-dot.active {
-                width: 24px;
-            }
-
-            /* Footer Mobile */
-            footer {
-                padding: 50px 20px 30px;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 35px;
-                margin-bottom: 40px;
-            }
-
-            .footer-brand {
-                font-size: 28px;
-            }
-
-            .footer-tagline {
-                font-size: 14px;
-            }
-
-            .footer-social {
-                flex-wrap: wrap;
-                gap: 15px;
-            }
-
-            .social-link {
-                font-size: 13px;
-            }
-
-            .footer-links h4 {
-                font-size: 12px;
-            }
-
-            .footer-links a {
-                font-size: 13px;
-            }
-
-            .footer-bottom {
-                font-size: 12px;
-                padding-top: 30px;
+                font-size: 36px;
             }
         }
 
@@ -3779,16 +3164,16 @@
             max-width: 500px;
         }
 
-        /* Challenge Statement - Nike Epic Style with White Background */
+        /* Challenge Statement - Nike Epic Style */
         .challenge-statement {
-            padding: 150px 60px;
-            background: #ffffff;
+            padding: 120px 60px;
+            text-align: center;
+            background: var(--primary-black);
             position: relative;
             overflow: hidden;
-            border-top: 2px solid var(--accent-green);
-            border-bottom: 2px solid var(--accent-green);
         }
 
+        /* Animated background rays */
         .challenge-statement::before {
             content: '';
             position: absolute;
@@ -3798,7 +3183,7 @@
             height: 150%;
             background: radial-gradient(
                 circle,
-                rgba(172, 225, 95, 0.08) 0%,
+                rgba(172, 225, 95, 0.1) 0%,
                 transparent 70%
             );
             transform: translate(-50%, -50%);
@@ -3816,32 +3201,65 @@
             }
         }
 
-        .challenge-content-horizontal {
+        .challenge-statement::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(90deg, transparent 0%, rgba(172, 225, 95, 0.05) 50%, transparent 100%);
+            animation: sweep-light 3s ease-in-out infinite;
+        }
+
+        @keyframes sweep-light {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .challenge-content {
             position: relative;
             z-index: 2;
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 100px;
-            align-items: center;
         }
 
-        .challenge-title-left {
-            font-size: clamp(56px, 8vw, 80px);
+        .challenge-title {
+            font-size: clamp(64px, 10vw, 96px);
             font-weight: 900;
             letter-spacing: -4px;
-            line-height: 1.1;
+            margin-bottom: 60px;
+            line-height: 0.9;
             text-transform: uppercase;
-            text-align: left;
-            color: var(--primary-black);
+            background: linear-gradient(135deg, #fff 0%, var(--accent-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
         }
 
-        .challenge-phrases-right {
+        .challenge-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent-green), transparent);
+            opacity: 0;
+            animation: underline-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes underline-glow {
+            0%, 100% { opacity: 0; transform: scaleX(0.5); }
+            50% { opacity: 1; transform: scaleX(1); }
+        }
+
+        .challenge-phrases {
             display: flex;
             flex-direction: column;
             gap: 20px;
-            align-items: flex-start;
+            align-items: center;
         }
 
         .challenge-phrase {
@@ -3851,10 +3269,9 @@
             position: relative;
             padding: 15px 40px;
             overflow: hidden;
-            color: var(--primary-black);
         }
 
-        /* Green wipe animation */
+        /* Staggered reveal effect */
         .challenge-phrase::before {
             content: '';
             position: absolute;
@@ -3866,51 +3283,7 @@
             transform: scaleX(0);
             transform-origin: left;
             z-index: -1;
-        }
-
-        .challenge-phrase.revealed::before {
-            animation: green-wipe 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        @keyframes green-wipe {
-            0% {
-                transform: scaleX(0);
-                transform-origin: left;
-            }
-            50% {
-                transform: scaleX(1);
-                transform-origin: left;
-            }
-            51% {
-                transform: scaleX(1);
-                transform-origin: right;
-            }
-            100% {
-                transform: scaleX(0);
-                transform-origin: right;
-            }
-        }
-
-        .challenge-phrase:nth-child(3) {
-            font-weight: 700;
-        }
-
-        /* Text color transition */
-        .challenge-phrase {
-            color: var(--primary-black);
-        }
-
-        .challenge-phrase.revealed {
-            animation: text-flash-white 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        @keyframes text-flash-white {
-            0%, 100% {
-                color: var(--primary-black);
-            }
-            40%, 60% {
-                color: var(--primary-white);
-            }
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .challenge-phrase.revealed::before {
@@ -3986,7 +3359,210 @@
 
 
         /* Scroll Animations - removed initial hidden state */
-    </style>
+    
+
+
+/* === MOBILE RESPONSIVE PATCH (2026-02) === */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+img, video, canvas, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent "margen raro" / barra vertical por overflow de elementos animados */
+section, header, nav, main, footer,
+.container, .wrapper, .content, .page,
+.hero, .hero-section, .intro-section, .challenge-statement,
+.participate-section, .prize-section {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+/* If your Safari doesn't support overflow: clip, fallback */
+@supports not (overflow: clip) {
+  section, header, nav, main, footer,
+  .container, .wrapper, .content, .page,
+  .hero, .hero-section, .intro-section, .challenge-statement,
+  .participate-section, .prize-section {
+    overflow-x: hidden;
+  }
+}
+
+/* --- NAV (móvil) --- */
+@media (max-width: 768px) {
+  nav, .navbar, .nav, .top-nav {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    height: auto !important;
+  }
+
+  /* Make nav wrap nicely instead of overflowing */
+  .nav-content, .nav-inner, .nav-container {
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+  }
+
+  .nav-links, .nav-menu, .menu {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    width: 100% !important;
+    gap: 14px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .nav-links a, .nav-menu a, .menu a {
+    font-size: 14px !important;
+    line-height: 1 !important;
+    padding: 10px 10px !important;
+    white-space: nowrap !important;
+  }
+
+  /* Logo never pushes layout */
+  .logo, .brand, .nav-logo {
+    max-width: 160px !important;
+  }
+}
+
+/* --- HERO (móvil) --- */
+@media (max-width: 768px) {
+  .hero, .hero-section, .hero-content {
+    min-height: 88vh !important;
+    padding: 18px 16px !important;
+  }
+
+  .hero h1, .hero-title, .hero-heading {
+    font-size: clamp(44px, 12vw, 72px) !important;
+    letter-spacing: -1px !important;
+  }
+
+  /* Buttons stack */
+  .hero-buttons, .cta-row, .hero-ctas {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+  .hero-buttons a, .cta-row a, .hero-ctas a, .hero-buttons button {
+    width: 100% !important;
+  }
+}
+
+/* --- "Más que un reto" + "Compromiso social" --- */
+/* Your HTML uses .intro-content; make it responsive even if the original CSS expected another class */
+.intro-content, .intro-grid, .intro-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .intro-content, .intro-grid, .intro-cards {
+    grid-template-columns: 1fr !important;
+    gap: 22px !important;
+  }
+
+  .intro-title, .intro-heading, .intro-card h2, .intro-card h3 {
+    font-size: clamp(38px, 10vw, 56px) !important;
+    line-height: 0.95 !important;
+  }
+
+  /* Avoid right-side cut on big words */
+  .intro-card, .intro-item, .intro-block {
+    padding-right: 0 !important;
+  }
+}
+
+/* --- "¿LISTO PARA EL RETO?" (animaciones) --- */
+.challenge-content { /* alias for your current HTML */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .challenge-content {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  /* IMPORTANT: prevent animated phrases from overflowing on mobile */
+  .challenge-phrases-right, .challenge-pass, .challenge-pass-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  /* Mobile-safe typography */
+  .challenge-title, .challenge-title-left {
+    font-size: clamp(44px, 11vw, 64px) !important;
+    line-height: 0.95 !important;
+  }
+
+  /* If phrases are laid out horizontally by JS/CSS, force vertical */
+  .challenge-pass {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+  .challenge-phrase {
+    white-space: normal !important;
+    width: 100% !important;
+  }
+}
+
+/* --- TARJETA VERDE (móvil sin parallax / tilt) --- */
+@media (max-width: 768px) {
+  .card-3d, .tilt-card, .parallax-card, .interactive-card, .green-card, .challenge-card {
+    transform: none !important;
+    perspective: none !important;
+  }
+  .card-3d *, .tilt-card *, .parallax-card *, .interactive-card * {
+    transform: none !important;
+  }
+}
+
+/* --- PREMIO (móvil: imagen + texto juntos, sin “foto fija” rara) --- */
+@media (max-width: 768px) {
+  .prize-grid, .prizes, .reward-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+
+  .prize-card, .reward-card, .prize-item {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .prize-card img, .reward-card img, .prize-item img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  /* Avoid huge top image area */
+  .prize-image, .reward-image {
+    max-height: 240px !important;
+    overflow: hidden !important;
+  }
+}
+
+/* --- Global: prevent any accidental horizontal scroll --- */
+@media (max-width: 768px) {
+  body { overflow-x: hidden !important; }
+  .marquee, .ticker, .scrolling-text { overflow-x: hidden !important; }
+}
+
+</style>
 </head>
 
 <body>
@@ -4006,45 +3582,22 @@
         </div>
     </nav>
 
-    <!-- Hero Section - Redesigned with Impact -->
+    <!-- Hero Section - Redesigned Layout -->
     <section class="hero">
         <div class="hero-bg"></div>
-        <div class="hero-overlay"></div>
-        <div class="hero-grain"></div>
-        
         <div class="hero-layout">
             <div class="hero-left">
-                <h1 class="hero-title-new">
-                    <span class="hero-line hero-line-1">KILÓMETROS</span>
-                    <span class="hero-line hero-line-2">QUE</span>
-                    <span class="hero-line hero-line-3">SUMAN</span>
+                <h1 class="hero-title">
+                    <span class="hero-title-line1">KILÓMETROS</span><br>
+                    <span class="hero-title-line2">QUE</span><br>
+                    <span class="hero-title-line3">SUMAN</span>
                 </h1>
+                <p class="hero-description">Acompáñanos a transformar el bienestar. Cada paso, cada kilómetro, cada esfuerzo cuenta.</p>
             </div>
-            
             <div class="hero-bottom-right">
-                <a href="https://www.strava.com/clubs/gesa" target="_blank" class="cta-button-new primary">
-                    <span class="cta-text">Únete ahora con Strava</span>
-                    <span class="cta-glow"></span>
-                </a>
-                <button class="cta-button-new secondary" onclick="document.querySelector('#participar').scrollIntoView({behavior: 'smooth'})">
-                    <span class="cta-border"></span>
-                    ¿De qué se trata?
-                </button>
+                <a href="https://www.strava.com/clubs/gesa" target="_blank" class="cta-button primary">¡Únete ahora con Strava!</a>
+                <button class="cta-button secondary" onclick="document.querySelector('#participar').scrollIntoView({behavior: 'smooth'})">¿De qué se trata?</button>
             </div>
-            
-            <!-- Microdetalle premium -->
-            <div class="hero-meta">
-                <span>30 días</span>
-                <span class="meta-dot">·</span>
-                <span>España</span>
-                <span class="meta-dot">·</span>
-                <span>Solo 1 ganador</span>
-            </div>
-        </div>
-        
-        <!-- Scroll indicator -->
-        <div class="scroll-indicator">
-            <div class="scroll-line"></div>
         </div>
     </section>
 
@@ -4063,11 +3616,11 @@
         </div>
     </section>
 
-    <!-- Challenge Statement - Nike Epic Style Horizontal -->
+    <!-- Challenge Statement - Nike Epic Style -->
     <section class="challenge-statement">
-        <div class="challenge-content-horizontal">
-            <h2 class="challenge-title-left">¿LISTO PARA<br>EL RETO?</h2>
-            <div class="challenge-phrases-right">
+        <div class="challenge-content">
+            <h2 class="challenge-title">¿LISTO PARA<br>EL RETO?</h2>
+            <div class="challenge-phrases">
                 <p class="challenge-phrase">Un mes.</p>
                 <p class="challenge-phrase">Un leaderboard.</p>
                 <p class="challenge-phrase">Un ganador.</p>
@@ -4189,10 +3742,9 @@
             <p class="prize-intro-text">Cuando el reto finalice, se revisará la clasificación en Strava. La persona con más kilómetros acumulados será proclamada ganadora y recibirá:</p>
         </div>
         
-        <!-- Prize Question Block -->
-        <div class="prize-question-block">
-            <p class="question-text">¿De qué habrá servido todo el esfuerzo?</p>
-            <p class="question-answer">Si has sido el que más ha pedaleado, te llevarás este pack de regalos valorados en <span class="highlight-value">+500€</span></p>
+        <!-- Tension Statement -->
+        <div class="prize-tension-statement">
+            <p class="prize-tension-text">SOLO UNA PERSONA<br>LO GANARÁ.</p>
         </div>
         
         <!-- Horizontal Scroll Carousel -->
@@ -4263,6 +3815,11 @@
                 <button class="carousel-dot" data-slide="3"></button>
             </div>
         </div>
+        
+        <!-- Closing Statement -->
+        <div class="prize-closing-statement">
+            <p class="prize-closing-text">EL PREMIO ES PARA<br>QUIEN MÁS LO MERECE.</p>
+        </div>
     </section>
 
     <!-- Footer -->
@@ -4271,11 +3828,6 @@
             <div>
                 <div class="footer-brand">GESA</div>
                 <p class="footer-tagline">Kilómetros que suman. Vidas que cambian.</p>
-                <div class="footer-social">
-                    <a href="https://www.instagram.com/gesaseguros/" target="_blank" class="social-link">Instagram</a>
-                    <a href="https://www.facebook.com/segurosgesa/" target="_blank" class="social-link">Facebook</a>
-                    <a href="https://www.linkedin.com/company/gesa-corredur%C3%ADa-de-seguros/posts/?feedView=all" target="_blank" class="social-link">LinkedIn</a>
-                </div>
             </div>
             <div class="footer-links">
                 <h4>Reto</h4>
@@ -4303,17 +3855,66 @@
         // GSAP ScrollTrigger Animations
         gsap.registerPlugin(ScrollTrigger);
 
-        // Hero background parallax - Subtle
+        // Hero animations with stagger and parallax
+        gsap.from('.hero-title', {
+            opacity: 0,
+            y: 100,
+            scale: 0.9,
+            duration: 1.4,
+            delay: 0.3,
+            ease: 'power4.out'
+        });
+
+        // Stagger animation for each line
+        gsap.from('.hero-title-line1', {
+            opacity: 0,
+            y: 80,
+            duration: 1,
+            delay: 0.4,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.hero-title-line2', {
+            opacity: 0,
+            y: 80,
+            duration: 1,
+            delay: 0.55,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.hero-title-line3', {
+            opacity: 0,
+            y: 80,
+            duration: 1,
+            delay: 0.7,
+            ease: 'power3.out'
+        });
+
+        gsap.from('.hero-description', {
+            opacity: 0,
+            y: 40,
+            duration: 1,
+            delay: 1
+        });
+
+        gsap.from('.hero-buttons .cta-button', {
+            opacity: 0,
+            y: 30,
+            stagger: 0.2,
+            duration: 0.8,
+            delay: 1.3
+        });
+
+        // Hero background parallax
         gsap.to('.hero-bg', {
             scrollTrigger: {
                 trigger: '.hero',
                 start: 'top top',
                 end: 'bottom top',
-                scrub: 1.5
+                scrub: 1
             },
-            y: 150,
-            scale: 1.08,
-            ease: 'none'
+            y: 200,
+            scale: 1.2
         });
 
         // Split section animations
@@ -4605,27 +4206,6 @@
             }
         });
 
-        // Challenge Phrases Animation
-        const challengePhrases = document.querySelectorAll('.challenge-phrase');
-        
-        const challengeObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const phrases = entry.target.parentElement.querySelectorAll('.challenge-phrase');
-                    phrases.forEach((phrase, index) => {
-                        setTimeout(() => {
-                            phrase.classList.add('revealed');
-                        }, index * 300);
-                    });
-                    challengeObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        if (challengePhrases.length > 0) {
-            challengeObserver.observe(challengePhrases[0].parentElement);
-        }
-
         // Steps Animation - One by One from Left
         const stepItems = document.querySelectorAll('.step-item');
         
@@ -4720,1568 +4300,6 @@
     </script>
 
 </body>
-        /* Responsive Mobile First */
-        @media (max-width: 968px) {
-            html {
-                font-size: 16px;
-            }
-
-            body {
-                overflow-x: hidden;
-                max-width: 100%;
-                width: 100%;
-            }
-
-            nav {
-                padding: 15px 20px;
-            }
-
-            .logo-img {
-                height: 35px;
-            }
-
-            .strava-logo {
-                height: 25px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            /* Hero Mobile */
-            .hero {
-                min-height: 100vh;
-                padding: 80px 0 40px;
-                width: 100%;
-                overflow: hidden;
-            }
-
-            .hero-layout {
-                padding: 0 20px;
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: flex-start;
-                height: auto;
-                min-height: calc(100vh - 120px);
-                width: 100%;
-                box-sizing: border-box;
-            }
-
-            .hero-left {
-                max-width: 100%;
-                margin-bottom: 40px;
-                width: 100%;
-            }
-
-            .hero-line {
-                font-size: 48px;
-                letter-spacing: -2px;
-                line-height: 0.9;
-            }
-
-            .hero-line-2 {
-                font-size: 48px;
-                letter-spacing: -2px;
-            }
-
-            .hero-bottom-right {
-                position: relative;
-                bottom: auto;
-                right: auto;
-                left: auto;
-                margin-top: auto;
-                flex-direction: column;
-                width: 100%;
-                gap: 12px;
-            }
-
-            .cta-button-new {
-                padding: 16px 30px;
-                font-size: 14px;
-                width: 100%;
-                border-radius: 40px;
-            }
-
-            .hero-meta {
-                position: relative;
-                bottom: auto;
-                left: auto;
-                margin-top: 30px;
-                font-size: 10px;
-                gap: 10px;
-                justify-content: flex-start;
-                flex-wrap: wrap;
-            }
-
-            /* Manifesto Mobile */
-            .manifesto-section {
-                padding: 60px 20px;
-                width: 100%;
-                overflow: hidden;
-                box-sizing: border-box;
-            }
-
-            .manifesto-container {
-                grid-template-columns: 1fr;
-                gap: 50px;
-                width: 100%;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            .manifesto-title {
-                font-size: 36px;
-                line-height: 1;
-            }
-
-            .manifesto-text {
-                font-size: 16px;
-            }
-
-            /* Challenge Mobile */
-            .challenge-statement {
-                padding: 60px 20px;
-                width: 100%;
-                overflow: hidden;
-                box-sizing: border-box;
-            }
-
-            .challenge-content-horizontal {
-                grid-template-columns: 1fr;
-                gap: 40px;
-                width: 100%;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            .challenge-title-left {
-                font-size: 36px;
-                text-align: left;
-                line-height: 1;
-            }
-
-            .challenge-phrases-right {
-                align-items: flex-start;
-                gap: 15px;
-            }
-
-            .challenge-phrase {
-                font-size: 20px;
-                padding: 12px 30px;
-                text-align: left;
-            }
-
-            /* Companion Mobile */
-            .companion-section {
-                padding: 60px 20px;
-                width: 100%;
-                overflow: hidden;
-                box-sizing: border-box;
-            }
-
-            .companion-container {
-                grid-template-columns: 1fr;
-                gap: 30px;
-                width: 100%;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            .companion-img {
-                width: 100%;
-                max-width: 100%;
-                transform: translateX(0);
-                height: auto;
-            }
-
-            .companion-content {
-                padding-left: 0;
-                text-align: left;
-                width: 100%;
-            }
-
-            .companion-title {
-                font-size: 32px;
-                line-height: 1;
-            }
-
-            .companion-text {
-                font-size: 16px;
-            }
-
-            /* Participate Mobile */
-            .participate-section {
-                padding: 60px 20px;
-                width: 100%;
-                overflow: hidden;
-                box-sizing: border-box;
-            }
-
-            .participate-container {
-                width: 100%;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            .participate-title {
-                font-size: 36px;
-                margin-bottom: 50px;
-            }
-
-            .participate-layout {
-                grid-template-columns: 1fr;
-                gap: 40px;
-                width: 100%;
-            }
-
-            .steps-vertical {
-                gap: 40px;
-            }
-
-            .step-item {
-                padding-left: 0;
-            }
-
-            .step-num {
-                font-size: 36px;
-                margin-bottom: 12px;
-            }
-
-            .step-heading {
-                font-size: 20px;
-                margin-bottom: 10px;
-            }
-
-            .step-desc {
-                font-size: 15px;
-            }
-
-            /* Challenge Pass Mobile */
-            .challenge-pass-wrapper {
-                perspective: none;
-                width: 100%;
-            }
-
-            .challenge-pass {
-                padding: 30px 25px;
-                width: 100%;
-                box-sizing: border-box;
-                margin: 0;
-            }
-
-            .pass-title {
-                font-size: 24px;
-            }
-
-            .pass-details {
-                grid-template-columns: 1fr;
-            }
-
-            /* Prize Section Mobile */
-            .prize-section {
-                padding: 60px 20px;
-                width: 100%;
-                overflow: hidden;
-                box-sizing: border-box;
-            }
-
-            .prize-carousel-wrapper {
-                width: 100%;
-                overflow: hidden;
-                padding: 0 0 80px 0;
-                box-sizing: border-box;
-            }
-
-            .prize-carousel {
-                padding: 0 20px 40px;
-            }
-
-            /* Footer Mobile */
-            footer {
-                padding: 50px 20px 30px;
-                width: 100%;
-                overflow: hidden;
-                box-sizing: border-box;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                overflow-x: hidden;
-                max-width: 100%;
-                width: 100%;
-            }
-
-            section {
-                width: 100%;
-                overflow: hidden;
-                box-sizing: border-box;
-            }
-
-            .manifesto-section {
-                padding: 40px 16px;
-            }
-
-            .manifesto-container {
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            .manifesto-title {
-                font-size: 28px;
-            }
-
-            .challenge-statement {
-                padding: 40px 16px;
-            }
-
-            .challenge-content-horizontal {
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            .challenge-title-left {
-                font-size: 28px;
-            }
-
-            .challenge-pass {
-                padding: 25px 20px;
-                border-radius: 12px;
-                width: 100%;
-                box-sizing: border-box;
-                margin: 0;
-            }
-
-            .companion-section {
-                padding: 40px 16px;
-            }
-
-            .companion-container {
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            .companion-title {
-                font-size: 24px;
-            }
-
-            .participate-section {
-                padding: 40px 16px;
-            }
-
-            .participate-title {
-                font-size: 28px;
-            }
-
-            .prize-section {
-                padding: 40px 16px;
-            }
-
-            footer {
-                padding: 40px 16px 20px;
-            }
-        }
 
 </html>
-/* Mobile responsiveness fixes for challenge and companion sections */
-@media (max-width: 768px) {
-    /* Challenge Statement - Stack vertically on mobile */
-    .challenge-statement {
-        padding: 80px 20px;
-        border-top: 2px solid var(--accent-green);
-        border-bottom: 2px solid var(--accent-green);
-    }
 
-    .challenge-content-horizontal {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        align-items: flex-start;
-    }
-
-    .challenge-title-left {
-        font-size: clamp(32px, 6vw, 48px);
-        letter-spacing: -2px;
-        line-height: 1.1;
-        text-align: left;
-    }
-
-    .challenge-phrases-right {
-        align-items: flex-start;
-        gap: 15px;
-    }
-
-    .challenge-phrase {
-        font-size: clamp(20px, 4vw, 32px);
-        font-weight: 400;
-        letter-spacing: -0.5px;
-        padding: 10px 20px;
-    }
-
-    .challenge-phrase:nth-child(1) {
-        font-weight: 600;
-        font-size: clamp(18px, 4vw, 28px);
-    }
-
-    .challenge-phrase:nth-child(2) {
-        font-weight: 400;
-    }
-
-    .challenge-phrase:nth-child(3) {
-        font-weight: 700;
-        font-size: clamp(22px, 4.5vw, 36px);
-        text-transform: uppercase;
-    }
-
-    /* Remove dot separator on mobile */
-    .challenge-phrase::after {
-        display: none;
-    }
-
-    /* Companion Section - Stack vertically */
-    .companion-section {
-        padding: 60px 20px;
-        background: #ffffff;
-    }
-
-    .companion-container {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-
-    .companion-visual {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .companion-img {
-        width: 100%;
-        max-width: 350px;
-        height: auto;
-        transform: translateX(0) !important;
-        margin: 0 auto;
-        display: block;
-    }
-
-    .companion-content {
-        padding-left: 0;
-        text-align: left;
-        max-width: 100%;
-    }
-
-    .companion-title {
-        font-size: clamp(28px, 6vw, 42px);
-        letter-spacing: -1px;
-        margin-bottom: 20px;
-        line-height: 1.1;
-        text-align: left;
-        color: var(--primary-black);
-    }
-
-    .companion-text {
-        font-size: 16px;
-        line-height: 1.6;
-        color: #1a1a1a;
-        margin-bottom: 12px;
-        font-weight: 400;
-    }
-
-    /* Fix horizontal scroll on mobile */
-    body {
-        max-width: 100vw;
-        overflow-x: hidden;
-    }
-
-    html {
-        max-width: 100vw;
-        overflow-x: hidden;
-    }
-}
-
-@media (max-width: 480px) {
-    /* Challenge Statement - Extra small screens */
-    .challenge-statement {
-        padding: 60px 16px;
-    }
-
-    .challenge-title-left {
-        font-size: clamp(24px, 5vw, 36px);
-        margin-bottom: 25px;
-    }
-
-    .challenge-phrase {
-        font-size: clamp(16px, 3.5vw, 24px);
-        padding: 8px 15px;
-    }
-
-    .challenge-phrase:nth-child(3) {
-        font-size: clamp(18px, 3.5vw, 28px);
-    }
-
-    /* Companion Section - Extra small */
-    .companion-section {
-        padding: 40px 16px;
-    }
-
-    .companion-img {
-        max-width: 280px;
-    }
-
-    .companion-title {
-        font-size: clamp(24px, 5vw, 36px);
-        margin-bottom: 15px;
-    }
-
-    .companion-text {
-        font-size: 14px;
-        margin-bottom: 10px;
-    }
-/* Fix horizontal overflow issue - Remove the black bar on the right */
-html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-    width: 100%;
-}
-
-/* Ensure all sections fit properly */
-section {
-    width: 100%;
-    overflow-x: hidden;
-}
-
-/* Fix manifesto section visibility */
-.manifesto-section {
-    width: 100%;
-    overflow: hidden;
-}
-
-.manifesto-container {
-    width: 100%;
-    padding: 0 60px;
-    box-sizing: border-box;
-}
-
-/* Fix challenge statement */
-.challenge-statement {
-    width: 100%;
-    overflow: hidden;
-}
-
-.challenge-content-horizontal {
-    width: 100%;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Fix green card cutoff */
-.challenge-pass {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 50px 45px;
-}
-
-/* Fix all main containers */
-.participate-container,
-.companion-container,
-.prize-carousel-wrapper {
-    width: 100%;
-    box-sizing: border-box;
-    overflow-x: hidden;
-}
-
-/* Ensure nav doesn't overflow */
-nav {
-    width: 100%;
-    overflow-x: hidden;
-}
-
-/* Mobile fix for manifesto section */
-@media (max-width: 968px) {
-    .manifesto-container {
-        grid-template-columns: 1fr;
-        padding: 0 30px;
-        gap: 40px;
-    }
-
-    .manifesto-section {
-        padding: 60px 20px;
-    }
-
-    .manifesto-title {
-        font-size: 32px;
-    }
-
-    .manifesto-text {
-        font-size: 16px;
-    }
-
-    /* Challenge section mobile fix */
-    .challenge-statement {
-        padding: 60px 20px;
-    }
-
-    .challenge-content-horizontal {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-
-    .challenge-title-left {
-        font-size: 28px;
-    }
-
-    .challenge-phrases-right {
-        gap: 12px;
-    }
-
-    /* Green card mobile fix */
-    .challenge-pass {
-        padding: 30px 25px;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .pass-title {
-        font-size: 24px;
-    }
-
-    .pass-details {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .manifesto-container {
-        padding: 0 16px;
-    }
-
-    .challenge-statement {
-        padding: 40px 16px;
-    }
-
-    .challenge-pass {
-        padding: 25px 20px;
-        border-radius: 12px;
-    }
-}
-/* ============================================================================
-    MOBILE RESPONSIVE - iPhone Optimized (390-430px)
-    ============================================================================
-    Rule: NO desktop changes. Mobile fixes only in media queries.
-    Viewport: width=device-width, initial-scale=1, viewport-fit=cover
-    ========================================================================== */
-
-/* CRITICAL: Prevent horizontal scroll on mobile */
-html,
-body {
-     max-width: 100%;
-     overflow-x: hidden;
-     width: 100%;
-}
-
-* {
-     box-sizing: border-box;
-}
-
-/* ============================================================================
-    TABLET & MOBILE - 768px and below
-    ========================================================================== */
-
-@media (max-width: 768px) {
-     /* ========== NAVIGATION FIX ========== */
-     nav {
-          padding: 16px 20px;
-          width: 100%;
-          overflow-x: hidden;
-          gap: 20px;
-     }
-
-     .logo {
-          flex-shrink: 0;
-     }
-
-     .logo-img {
-          height: 40px;
-          width: auto;
-     }
-
-     .strava-logo {
-          height: 30px;
-          width: auto;
-     }
-
-     /* Hide nav links on tablet, show only on larger screens */
-     .nav-links {
-          display: none;
-     }
-
-     /* ========== HERO SECTION ========== */
-     .hero {
-          min-height: 100vh;
-          width: 100%;
-          overflow: hidden;
-          padding: 0;
-          margin: 0;
-     }
-
-     .hero-bg {
-          width: 100%;
-          height: 100%;
-     }
-
-     .hero-layout {
-          padding: 100px 20px 40px;
-          width: 100%;
-          height: auto;
-          min-height: calc(100vh - 80px);
-          flex-direction: column;
-          justify-content: flex-start;
-          align-items: flex-start;
-          overflow: hidden;
-          box-sizing: border-box;
-     }
-
-     .hero-left {
-          width: 100%;
-          max-width: 100%;
-          margin-bottom: 30px;
-     }
-
-     .hero-line {
-          font-size: clamp(38px, 10vw, 64px);
-          letter-spacing: -2px;
-          line-height: 0.85;
-     }
-
-     .hero-line-1,
-     .hero-line-2,
-     .hero-line-3 {
-          font-size: clamp(38px, 10vw, 64px);
-          letter-spacing: -2px;
-     }
-
-     .hero-subtitle-block {
-          margin-bottom: 40px;
-     }
-
-     .hero-subtitle-main {
-          font-size: clamp(16px, 4vw, 20px);
-          margin-bottom: 10px;
-     }
-
-     .hero-subtitle-secondary {
-          font-size: clamp(13px, 3vw, 16px);
-     }
-
-     .hero-bottom-right {
-          position: static;
-          width: 100%;
-          flex-direction: column;
-          gap: 12px;
-          margin-top: auto;
-          margin-bottom: 0;
-     }
-
-     .cta-button-new {
-          width: 100%;
-          padding: 16px 24px;
-          font-size: 14px;
-          border-radius: 40px;
-     }
-
-     .cta-button-new.primary {
-          box-shadow: 0 8px 20px rgba(172, 225, 95, 0.3);
-     }
-
-     .hero-meta {
-          position: static;
-          margin-top: 30px;
-          font-size: 10px;
-          gap: 8px;
-          justify-content: flex-start;
-          flex-wrap: wrap;
-          opacity: 0.5;
-     }
-
-     .scroll-indicator {
-          display: none;
-     }
-
-     /* ========== MANIFESTO SECTION ========== */
-     .manifesto-section {
-          padding: 60px 20px;
-          width: 100%;
-          overflow: hidden;
-          box-sizing: border-box;
-     }
-
-     .manifesto-container {
-          grid-template-columns: 1fr;
-          gap: 50px;
-          width: 100%;
-          max-width: 100%;
-     }
-
-     .manifesto-block {
-          width: 100%;
-     }
-
-     .manifesto-title {
-          font-size: clamp(32px, 7vw, 48px);
-          letter-spacing: -2px;
-          line-height: 1;
-          margin-bottom: 20px;
-     }
-
-     .manifesto-text {
-          font-size: 15px;
-          line-height: 1.6;
-          opacity: 0.85;
-          max-width: 100%;
-     }
-
-     /* ========== CHALLENGE STATEMENT SECTION ========== */
-     .challenge-statement {
-          padding: 60px 20px;
-          width: 100%;
-          overflow: hidden;
-          box-sizing: border-box;
-          border-top: 2px solid var(--accent-green);
-          border-bottom: 2px solid var(--accent-green);
-     }
-
-     .challenge-content-horizontal {
-          grid-template-columns: 1fr;
-          gap: 30px;
-          width: 100%;
-          max-width: 100%;
-          align-items: flex-start;
-     }
-
-     .challenge-title-left {
-          font-size: clamp(32px, 7vw, 48px);
-          letter-spacing: -2px;
-          line-height: 1.1;
-          text-align: left;
-          color: var(--primary-black);
-          margin: 0;
-          width: 100%;
-     }
-
-     .challenge-phrases-right {
-          width: 100%;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 12px;
-     }
-
-     .challenge-phrase {
-          font-size: clamp(18px, 4vw, 28px);
-          font-weight: 400;
-          letter-spacing: -0.5px;
-          padding: 8px 16px;
-          position: relative;
-          width: 100%;
-          color: var(--primary-black);
-     }
-
-     .challenge-phrase:nth-child(1) {
-          font-weight: 600;
-          font-size: clamp(16px, 3.5vw, 22px);
-          color: var(--accent-green);
-     }
-
-     .challenge-phrase:nth-child(2) {
-          font-weight: 400;
-          font-size: clamp(16px, 3.5vw, 20px);
-          opacity: 0.9;
-     }
-
-     .challenge-phrase:nth-child(3) {
-          font-weight: 700;
-          font-size: clamp(18px, 5vw, 28px);
-          color: var(--accent-green);
-          text-transform: uppercase;
-     }
-
-     .challenge-phrase::after {
-          display: none;
-     }
-
-     /* ========== COMPANION SECTION ========== */
-     .companion-section {
-          padding: 60px 20px;
-          width: 100%;
-          overflow: hidden;
-          box-sizing: border-box;
-          background: #ffffff;
-     }
-
-     .companion-container {
-          grid-template-columns: 1fr;
-          gap: 30px;
-          width: 100%;
-          max-width: 100%;
-     }
-
-     .companion-visual {
-          width: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-     }
-
-     .companion-img {
-          width: 100%;
-          max-width: 100%;
-          height: auto;
-          transform: none !important;
-          margin: 0;
-          display: block;
-          filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
-     }
-
-     .companion-content {
-          width: 100%;
-          padding-left: 0;
-          text-align: left;
-          color: var(--primary-black);
-     }
-
-     .companion-title {
-          font-size: clamp(28px, 6vw, 40px);
-          font-weight: 900;
-          letter-spacing: -1px;
-          margin-bottom: 20px;
-          line-height: 1.1;
-          color: var(--primary-black);
-     }
-
-     .companion-text {
-          font-size: 15px;
-          line-height: 1.6;
-          color: #1a1a1a;
-          margin-bottom: 12px;
-          font-weight: 400;
-     }
-
-     /* ========== PARTICIPATE SECTION ========== */
-     .participate-section {
-          padding: 60px 20px;
-          width: 100%;
-          overflow: hidden;
-          box-sizing: border-box;
-     }
-
-     .participate-container {
-          width: 100%;
-          max-width: 100%;
-          box-sizing: border-box;
-     }
-
-     .participate-title {
-          font-size: clamp(32px, 7vw, 48px);
-          margin-bottom: 40px;
-          letter-spacing: -2px;
-     }
-
-     .participate-layout {
-          grid-template-columns: 1fr;
-          gap: 40px;
-          width: 100%;
-          max-width: 100%;
-     }
-
-     /* ========== STEPS VERTICAL ========== */
-     .steps-vertical {
-          gap: 40px;
-          width: 100%;
-     }
-
-     .step-item {
-          padding-left: 0;
-     }
-
-     .step-num {
-          font-size: 48px;
-          font-weight: 900;
-          color: var(--accent-green);
-          margin-bottom: 12px;
-     }
-
-     .step-heading {
-          font-size: clamp(20px, 4vw, 28px);
-          font-weight: 700;
-          margin-bottom: 10px;
-          letter-spacing: -0.5px;
-          text-transform: uppercase;
-     }
-
-     .step-desc {
-          font-size: 14px;
-          line-height: 1.6;
-          opacity: 0.8;
-          font-weight: 300;
-     }
-
-     /* ========== CHALLENGE PASS CARD ========== */
-     .challenge-pass-wrapper {
-          width: 100%;
-          perspective: none;
-     }
-
-     .challenge-pass {
-          width: 100%;
-          max-width: 100%;
-          padding: 30px 20px;
-          border-radius: 16px;
-          margin: 0;
-          box-sizing: border-box;
-          background: var(--accent-green);
-          color: var(--primary-black);
-          box-shadow: 0 15px 40px rgba(172, 225, 95, 0.3);
-          transform: none !important;
-          position: relative;
-          display: block;
-     }
-
-     .challenge-pass:hover {
-          box-shadow: 0 15px 40px rgba(172, 225, 95, 0.3);
-          transform: none;
-     }
-
-     .pass-header {
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 20px;
-          font-size: 10px;
-          gap: 0;
-     }
-
-     .pass-header-badge {
-          font-size: 9px;
-     }
-
-     .pass-title {
-          font-size: clamp(28px, 5vw, 38px);
-          font-weight: 900;
-          line-height: 0.95;
-          margin-bottom: 20px;
-          letter-spacing: -1px;
-          text-transform: uppercase;
-     }
-
-     .pass-winner-badge {
-          padding: 15px;
-          gap: 12px;
-          margin: 20px 0;
-     }
-
-     .winner-number {
-          width: 40px;
-          height: 40px;
-          font-size: 20px;
-     }
-
-     .winner-text {
-          font-size: 11px;
-     }
-
-     .pass-divider {
-          margin: 20px 0;
-     }
-
-     .pass-details {
-          grid-template-columns: 1fr;
-          gap: 15px;
-          margin-bottom: 20px;
-     }
-
-     .pass-detail-item h4 {
-          font-size: 9px;
-     }
-
-     .pass-detail-item p {
-          font-size: 14px;
-     }
-
-     .progress-section {
-          margin: 15px 0;
-     }
-
-     .progress-label {
-          font-size: 9px;
-     }
-
-     .pass-microcopy {
-          font-size: 11px;
-          padding: 12px;
-          margin: 15px 0;
-     }
-
-     .pass-actions {
-          gap: 12px;
-          width: 100%;
-     }
-
-     .pass-btn-primary {
-          padding: 16px 24px;
-          font-size: 13px;
-          width: 100%;
-          text-align: center;
-     }
-
-     .pass-link-secondary {
-          font-size: 12px;
-          padding: 8px;
-     }
-
-     /* ========== PRIZE SECTION ========== */
-     .prize-section {
-          padding: 60px 20px;
-          width: 100%;
-          overflow: hidden;
-          box-sizing: border-box;
-     }
-
-     .prize-header {
-          margin-bottom: 40px;
-     }
-
-     .prize-main-title {
-          font-size: clamp(32px, 7vw, 48px);
-          margin-bottom: 20px;
-          letter-spacing: -2px;
-     }
-
-     .prize-intro-text {
-          font-size: 14px;
-          line-height: 1.6;
-          max-width: 100%;
-     }
-
-     .prize-question-block {
-          margin: 40px auto 50px;
-          padding: 0 20px;
-     }
-
-     .question-text {
-          font-size: clamp(22px, 5vw, 32px);
-          margin-bottom: 20px;
-          letter-spacing: -1px;
-     }
-
-     .question-answer {
-          font-size: 14px;
-          line-height: 1.6;
-          max-width: 100%;
-     }
-
-     .highlight-value {
-          font-size: 1.3em;
-     }
-
-     .prize-carousel-wrapper {
-          width: 100%;
-          overflow: hidden;
-          padding: 0;
-          box-sizing: border-box;
-     }
-
-     .prize-carousel {
-          padding: 0 16px 30px;
-          gap: 20px;
-          scroll-padding: 16px;
-     }
-
-     .prize-slide {
-          flex: 0 0 calc(100% - 0px);
-          max-width: 100%;
-     }
-
-     .prize-slide-inner {
-          grid-template-columns: 1fr;
-          min-height: auto;
-     }
-
-     .prize-slide-image {
-          padding: 40px 20px;
-          min-height: 280px;
-          width: 100%;
-     }
-
-     .prize-slide-image img {
-          max-width: 250px;
-          max-height: 250px;
-     }
-
-     .prize-slide-content {
-          padding: 30px 20px;
-          width: 100%;
-     }
-
-     .prize-slide-category {
-          font-size: 11px;
-          margin-bottom: 12px;
-     }
-
-     .prize-slide-title {
-          font-size: clamp(24px, 5vw, 36px);
-          margin-bottom: 15px;
-     }
-
-     .prize-slide-desc {
-          font-size: 14px;
-          line-height: 1.6;
-     }
-
-     .carousel-dots {
-          gap: 6px;
-          margin-top: 20px;
-     }
-
-     .carousel-dot {
-          width: 8px;
-          height: 8px;
-     }
-
-     .carousel-dot.active {
-          width: 20px;
-     }
-
-     /* ========== FOOTER ========== */
-     footer {
-          padding: 50px 20px 30px;
-          width: 100%;
-          overflow: hidden;
-          box-sizing: border-box;
-     }
-
-     .footer-content {
-          grid-template-columns: 1fr;
-          gap: 30px;
-          width: 100%;
-     }
-
-     .footer-brand {
-          font-size: 24px;
-     }
-
-     .footer-tagline {
-          font-size: 13px;
-     }
-
-     .footer-links h4 {
-          font-size: 11px;
-     }
-
-     .footer-links a {
-          font-size: 12px;
-     }
-
-     .footer-bottom {
-          font-size: 11px;
-          padding-top: 25px;
-     }
-}
-
-/* ============================================================================
-    SMALL MOBILE - iPhone SE / Small screens (480px and below)
-    ========================================================================== */
-
-@media (max-width: 480px) {
-     html,
-     body {
-          width: 100%;
-          overflow-x: hidden;
-     }
-
-     /* ========== TYPOGRAPHY SCALE DOWN ========== */
-     nav {
-          padding: 14px 16px;
-          gap: 15px;
-     }
-
-     .logo-img {
-          height: 36px;
-     }
-
-     .strava-logo {
-          height: 26px;
-     }
-
-     /* ========== HERO ========== */
-     .hero-layout {
-          padding: 80px 16px 30px;
-          min-height: calc(100vh - 70px);
-     }
-
-     .hero-line {
-          font-size: clamp(32px, 9vw, 52px);
-          letter-spacing: -1.5px;
-     }
-
-     .hero-line-1,
-     .hero-line-2,
-     .hero-line-3 {
-          font-size: clamp(32px, 9vw, 52px);
-          letter-spacing: -1.5px;
-     }
-
-     .cta-button-new {
-          padding: 14px 20px;
-          font-size: 13px;
-     }
-
-     .hero-meta {
-          font-size: 9px;
-          gap: 6px;
-     }
-
-     /* ========== MANIFESTO ========== */
-     .manifesto-section {
-          padding: 50px 16px;
-     }
-
-     .manifesto-title {
-          font-size: clamp(26px, 6vw, 40px);
-          margin-bottom: 16px;
-     }
-
-     .manifesto-text {
-          font-size: 14px;
-          line-height: 1.5;
-     }
-
-     /* ========== CHALLENGE ========== */
-     .challenge-statement {
-          padding: 50px 16px;
-     }
-
-     .challenge-title-left {
-          font-size: clamp(26px, 6vw, 40px);
-     }
-
-     .challenge-phrase {
-          font-size: clamp(15px, 3.5vw, 22px);
-          padding: 6px 12px;
-     }
-
-     .challenge-phrase:nth-child(1) {
-          font-size: clamp(14px, 3vw, 18px);
-     }
-
-     .challenge-phrase:nth-child(3) {
-          font-size: clamp(16px, 4vw, 24px);
-     }
-
-     /* ========== COMPANION ========== */
-     .companion-section {
-          padding: 50px 16px;
-     }
-
-     .companion-title {
-          font-size: clamp(24px, 5vw, 36px);
-          margin-bottom: 16px;
-     }
-
-     .companion-text {
-          font-size: 14px;
-          margin-bottom: 10px;
-     }
-
-     /* ========== PARTICIPATE ========== */
-     .participate-section {
-          padding: 50px 16px;
-     }
-
-     .participate-title {
-          font-size: clamp(26px, 6vw, 40px);
-          margin-bottom: 30px;
-     }
-
-     .step-num {
-          font-size: 40px;
-          margin-bottom: 10px;
-     }
-
-     .step-heading {
-          font-size: clamp(18px, 4vw, 24px);
-          margin-bottom: 8px;
-     }
-
-     .step-desc {
-          font-size: 13px;
-          line-height: 1.5;
-     }
-
-     /* ========== CHALLENGE PASS ========== */
-     .challenge-pass {
-          padding: 25px 16px;
-     }
-
-     .pass-title {
-          font-size: clamp(24px, 4.5vw, 32px);
-          margin-bottom: 16px;
-     }
-
-     .pass-winner-badge {
-          padding: 12px;
-     }
-
-     .winner-number {
-          width: 36px;
-          height: 36px;
-          font-size: 18px;
-     }
-
-     .winner-text {
-          font-size: 10px;
-     }
-
-     .pass-detail-item h4 {
-          font-size: 8px;
-     }
-
-     .pass-detail-item p {
-          font-size: 12px;
-     }
-
-     .pass-microcopy {
-          font-size: 10px;
-          padding: 10px;
-     }
-
-     .pass-btn-primary {
-          padding: 14px 20px;
-          font-size: 12px;
-     }
-
-     /* ========== PRIZE ========== */
-     .prize-section {
-          padding: 50px 16px;
-     }
-
-     .prize-main-title {
-          font-size: clamp(26px, 6vw, 40px);
-          margin-bottom: 16px;
-     }
-
-     .prize-intro-text {
-          font-size: 13px;
-     }
-
-     .question-text {
-          font-size: clamp(18px, 4vw, 28px);
-          margin-bottom: 16px;
-     }
-
-     .question-answer {
-          font-size: 13px;
-     }
-
-     .prize-carousel {
-          padding: 0 12px 25px;
-          gap: 15px;
-     }
-
-     .prize-slide {
-          flex: 0 0 100%;
-     }
-
-     .prize-slide-image {
-          padding: 30px 16px;
-          min-height: 250px;
-     }
-
-     .prize-slide-image img {
-          max-width: 200px;
-          max-height: 200px;
-     }
-
-     .prize-slide-content {
-          padding: 25px 16px;
-     }
-
-     .prize-slide-category {
-          font-size: 10px;
-     }
-
-     .prize-slide-title {
-          font-size: clamp(20px, 4vw, 28px);
-          margin-bottom: 12px;
-     }
-
-     .prize-slide-desc {
-          font-size: 13px;
-     }
-
-     .carousel-dots {
-          margin-top: 16px;
-     }
-
-     /* ========== FOOTER ========== */
-     footer {
-          padding: 40px 16px 25px;
-     }
-
-     .footer-brand {
-          font-size: 20px;
-     }
-
-     .footer-tagline {
-          font-size: 12px;
-     }
-
-     .footer-links h4 {
-          font-size: 10px;
-     }
-
-     .footer-links a {
-          font-size: 11px;
-     }
-
-     .footer-bottom {
-          font-size: 10px;
-     }
-}
-
-/* ============================================================================
-    REMOVE HORIZONTAL SCROLLBAR - Global fix
-    ========================================================================== */
-
-@media (max-width: 768px) {
-     body::before {
-          display: none;
-     }
-
-     section {
-          width: 100%;
-          overflow-x: hidden;
-     }
-
-     .hero-bg,
-     .hero-overlay,
-     .hero-grain {
-          width: 100%;
-          overflow: hidden;
-     }
-
-     /* Kill any transform that causes overflow */
-     .companion-img {
-          transform: none !important;
-     }
-
-     .challenge-pass {
-          transform: none !important;
-          perspective: none !important;
-     }
-
-     /* Disable 3D on mobile */
-     .challenge-pass-wrapper {
-          perspective: none;
-     }
-}
